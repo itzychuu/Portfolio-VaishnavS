@@ -1,14 +1,15 @@
 import { Briefcase, GraduationCap, Award } from 'lucide-react';
 
 const experiences = [
-  { role: 'Senior Full Stack Developer', company: 'Freelance', period: '2023 — Present', desc: 'Leading end-to-end development of premium web applications for global clients. Specializing in React, Node.js, and cinematic UI design.' },
-  { role: 'Full Stack Developer',          company: 'Tech Studio', period: '2022 — 2023',  desc: 'Built and maintained SaaS platforms serving 10k+ users. Implemented CI/CD pipelines and improved performance by 40%.' },
-  { role: 'Frontend Developer',            company: 'Startup Hub', period: '2021 — 2022',  desc: 'Developed responsive user interfaces with React and TypeScript. Collaborated with design teams to ship pixel-perfect products.' },
+  { role: 'Secretary',                                company: 'IEEE IAS SBCE', period: '2026 — Present', desc: 'Leading end-to-end development of premium web applications for global clients. Specializing in React, Node.js, and cinematic UI design.' },
+  { role: 'Creative Team Lead',                       company: 'MuLearn SBC', period: '2025 — Present',  desc: 'Built and maintained SaaS platforms serving 10k+ users. Implemented CI/CD pipelines and improved performance by 40%.' },
+  { role: 'Volunteer',                                company: 'TinkerHub SBCE', period: '2025 — Present',  desc: 'Developed responsive user interfaces with React and TypeScript. Collaborated with design teams to ship pixel-perfect products.' },
+  { role: 'Social Media and Marketing Volunteer',     company: 'KTUSpot.in', period: '2026 — Present',  desc: 'Developed responsive user interfaces with React and TypeScript. Collaborated with design teams to ship pixel-perfect products.' },
 ];
 
 const education = [
-  { degree: 'B.Tech in Computer Science', institution: 'University', period: '2019 — 2023', achievements: ['Graduated with Distinction', 'Best Project Award 2023'] },
-  { degree: 'Full Stack Bootcamp',         institution: 'Code Academy', period: '2021',      achievements: ['Top 5% of cohort', 'Built 5 production apps'] },
+  { degree: 'B.Tech in Computer Science', institution: 'Sree Buddha College of Engineering, Pattoor', period: '2023 - 2027', achievements: ['Currently Studying Final Year in CSE'] },
+  { degree: 'Higher Secondary Education', institution: 'NSS Higher Secondary, Pandalam', period: '2021 - 2022',      achievements: ['89% scored'] },
 ];
 
 const certificates = [

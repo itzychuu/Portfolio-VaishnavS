@@ -3,28 +3,31 @@ import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
 const projects = [
   {
     num: '01',
-    title: 'Nexus Analytics',
-    category: 'SaaS Platform',
-    desc: 'A real-time analytics dashboard with AI-powered insights, custom reporting, and team collaboration features.',
-    tech: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'WebSocket'],
+    title: 'CareGuru - An medical AI Assistant',
+    category: 'Booking Platform',
+    desc: 'CareGuru is a smart healthcare appointment booking app that allows users to easily find doctors, schedule consultations, and manage appointments in one place.',
+    tech: ['React', 'React', 'Firebase', 'Python', 'Vercel'],
+    url: 'https://careguruv2-updated.vercel.app/',
     img: 'https://images.pexels.com/photos/7376/startup-photos.jpg?auto=compress&cs=tinysrgb&w=800',
     span: 'lg:col-span-2 lg:row-span-2',
   },
   {
     num: '02',
-    title: 'Lumen Studio',
-    category: 'Portfolio CMS',
-    desc: 'A headless CMS designed for creative studios with drag-and-drop builder and live preview.',
-    tech: ['Next.js', 'GraphQL', 'Prisma', 'Tailwind'],
+    title: 'DocuSmith - An AI Powered Report Generator',
+    category: 'SaaS Platform',
+    desc: 'DocuSmith is an AI-powered report generation platform that simplifies creating structured, professional documents with minimal effort.',
+    tech: ['Figma', 'React', 'CSS', 'Vercel', 'Render', 'Firebase', 'Python'],
+    url: 'https://docusmithv2.vercel.app/',
     img: 'https://images.pexels.com/photos/1966452/pexels-photo-1966452.jpeg?auto=compress&cs=tinysrgb&w=800',
     span: 'lg:col-span-1',
   },
   {
     num: '03',
-    title: 'Pulse Fitness',
-    category: 'Mobile App',
-    desc: 'Cross-platform fitness tracking app with workout plans, nutrition logging, and social challenges.',
-    tech: ['React Native', 'Expo', 'Firebase'],
+    title: 'OmniMind',
+    category: 'Personal AI',
+    desc: 'OmniMind is an intelligent, all-in-one AI platform designed to streamline tasks, generate insights, and enhance productivity through smart automation',
+    tech: ['React', 'Figma', 'Tailwind CSS', 'Ollama'],
+    url: 'https://careguruv2-updated.vercel.app/',
     img: 'https://images.pexels.com/photos/4498294/pexels-photo-4498294.jpeg?auto=compress&cs=tinysrgb&w=800',
     span: 'lg:col-span-1',
   },
@@ -34,6 +37,7 @@ const projects = [
     category: 'FinTech',
     desc: 'A secure banking interface with biometric auth, real-time transactions, and budget analytics.',
     tech: ['React', 'Rust', 'WebAssembly', 'Supabase'],
+    url: 'https://careguruv2-updated.vercel.app/',
     img: 'https://images.pexels.com/photos/4968391/pexels-photo-4968391.jpeg?auto=compress&cs=tinysrgb&w=800',
     span: 'lg:col-span-2',
   },
@@ -43,6 +47,7 @@ const projects = [
     category: 'E-Commerce',
     desc: 'A premium e-commerce platform with 3D product previews, AR try-on, and lightning-fast checkout.',
     tech: ['React', 'Three.js', 'Stripe', 'Redis'],
+    url: 'https://careguruv2-updated.vercel.app/',
     img: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800',
     span: 'lg:col-span-1',
   },
@@ -116,7 +121,7 @@ export default function Projects() {
                 {/* Buttons */}
                 <div className="flex gap-3 mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                   <a
-                    href="#"
+                    href={p.url}
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold text-white glass transition-all"
                     style={{ fontFamily: 'var(--font-alt)' }}
                     onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = 'rgba(196,0,33,0.2)')}

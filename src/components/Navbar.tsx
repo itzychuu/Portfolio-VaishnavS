@@ -7,8 +7,6 @@ const links = [
   { label: 'Projects',     href: '#projects' },
   { label: 'Skills',       href: '#skills' },
   { label: 'Experience',   href: '#experience' },
-  { label: 'Services',     href: '#services' },
-  { label: 'Testimonials', href: '#testimonials' },
   { label: 'Contact',      href: '#contact' },
 ];
 
@@ -97,26 +95,6 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-
-          {/* CTA */}
-          <a
-            href="#contact"
-            className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full text-white text-xs font-semibold transition-all duration-300 shrink-0"
-            style={{
-              background: 'var(--accent)',
-              fontFamily: 'var(--font-alt)',
-              letterSpacing: '0.06em',
-              cursor: 'none',
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.boxShadow = '0 0 30px rgba(196,0,33,0.5)';
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.boxShadow = 'none';
-            }}
-          >
-            Hire Me
-          </a>
 
           {/* Mobile toggle */}
           <button

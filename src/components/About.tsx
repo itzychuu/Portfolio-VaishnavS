@@ -1,13 +1,6 @@
 import { Download, Target, Eye, Award } from 'lucide-react';
 import { useCounter } from '@/hooks/useScrollReveal';
 
-const timeline = [
-  { year: '2021', title: 'Started Journey', desc: 'Began learning web development with HTML, CSS, and JavaScript.' },
-  { year: '2022', title: 'First Projects',   desc: 'Built and deployed my first full-stack applications using React and Node.js.' },
-  { year: '2023', title: 'Freelance Career', desc: 'Started accepting freelance clients and delivered 20+ successful projects.' },
-  { year: '2024', title: 'Premium Work',      desc: 'Focused on crafting award-level digital experiences with cinematic design.' },
-];
-
 function Counter({ value, label }: { value: number; label: string }) {
   const ref = useCounter(value);
   return (
@@ -48,7 +41,7 @@ export default function About() {
               />
               <div className="relative glass rounded-3xl p-2">
                 <img
-                  src="/images/vaishnav-s_(1).png"
+                  src="/images/vaishnav-s2.png"
                   alt="Vaishnav S portrait"
                   className="w-full rounded-2xl object-cover"
                   style={{ aspectRatio: '4/5' }}
@@ -57,31 +50,16 @@ export default function About() {
                   height={500}
                 />
               </div>
-              {/* Floating card */}
-              <div
-                className="absolute -bottom-6 -right-6 glass rounded-2xl p-4 flex items-center gap-3"
-                style={{ animation: 'float 5s ease-in-out infinite' }}
-              >
-                <Award size={24} style={{ color: 'var(--accent)' }} />
-                <div>
-                  <p className="text-sm font-semibold text-white" style={{ fontFamily: 'var(--font-alt)' }}>Award-Level</p>
-                  <p className="text-xs" style={{ fontFamily: 'var(--font-alt)', color: 'var(--text-secondary)' }}>Craftsmanship</p>
-                </div>
-              </div>
             </div>
           </div>
 
           {/* Right: story */}
           <div className="lg:col-span-7 reveal-right">
             <p className="text-base sm:text-lg mb-6" style={{ fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.8 }}>
-              I'm <span className="text-white font-semibold">Vaishnav S</span>, a Full Stack Developer and UI/UX Designer
-              based in India. I specialize in building premium digital experiences that blend
-              cutting-edge engineering with cinematic design.
+              I'm <span className="text-white font-semibold">Vaishnav S</span>, a Computer Science and Engineering student from Kerala with a passion for building meaningful digital experiences through technology, design, and innovation. My interests lie at the intersection of Full-Stack Web Development, UI/UX Design, and Cybersecurity, where I enjoy transforming ideas into secure, scalable, and visually engaging products.
             </p>
             <p className="text-base sm:text-lg mb-10" style={{ fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.8 }}>
-              With over 3 years of experience, I've delivered 40+ projects for 20+ clients worldwide.
-              My work has been recognized for its attention to detail, performance, and visual polish.
-              I believe great software should feel as good as it functions.
+              Beyond academics, I actively contribute to student communities and collaborative initiatives, taking on leadership roles that allow me to create impact while learning from others. I enjoy working on projects that challenge me to think creatively, improve continuously, and push the boundaries of what's possible with modern technologies.
             </p>
 
             {/* Mission & Vision */}
@@ -90,23 +68,21 @@ export default function About() {
                 <Target size={24} style={{ color: 'var(--accent)' }} className="mb-3" />
                 <h3 className="text-lg font-semibold text-white mb-2" style={{ fontFamily: 'var(--font-alt)' }}>Mission</h3>
                 <p className="text-sm" style={{ fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                  To craft digital experiences that are not only functional but truly memorable,
-                  pushing the boundaries of what's possible on the web.
+                  To continuously learn, innovate, and engineer scalable digital solutions that combine exceptional design, robust technology, and meaningful user experiences while contributing to the growth of individuals, communities, and the tech ecosystem.
                 </p>
               </div>
               <div className="glass card-tilt rounded-2xl p-6">
                 <Eye size={24} style={{ color: 'var(--accent)' }} className="mb-3" />
                 <h3 className="text-lg font-semibold text-white mb-2" style={{ fontFamily: 'var(--font-alt)' }}>Vision</h3>
                 <p className="text-sm" style={{ fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                  To be a driving force in the next generation of web craftsmanship,
-                  where every interaction communicates quality and care.
+                  To shape the future through technology by building secure, innovative, and human-centered digital experiences that make a lasting impact.
                 </p>
               </div>
             </div>
 
             {/* Counters */}
             <div className="grid grid-cols-3 gap-4 mb-10">
-              <Counter value={3}  label="Years" />
+              <Counter value={3} label="Years" />
               <Counter value={40} label="Projects" />
               <Counter value={20} label="Clients" />
             </div>
@@ -122,37 +98,6 @@ export default function About() {
             >
               <Download size={16} /> Download Resume
             </a>
-          </div>
-        </div>
-
-        {/* Timeline */}
-        <div className="mt-24">
-          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-12 text-center reveal" style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.05em' }}>
-            My Journey
-          </h3>
-          <div className="relative max-w-3xl mx-auto">
-            {/* Line */}
-            <div className="absolute left-4 sm:left-1/2 top-0 bottom-0 timeline-line" />
-            {timeline.map((item, i) => (
-              <div
-                key={item.year}
-                className={`relative flex items-start gap-6 mb-12 reveal ${i % 2 === 0 ? 'sm:flex-row-reverse' : ''}`}
-              >
-                {/* Dot */}
-                <div className="absolute left-4 sm:left-1/2 -translate-x-1/2 z-10">
-                  <div className="w-4 h-4 rounded-full" style={{ background: 'var(--accent)', boxShadow: '0 0 20px rgba(196,0,33,0.6)' }} />
-                </div>
-                {/* Card */}
-                <div className="flex-1 sm:w-1/2 sm:px-8 pl-12 sm:pl-0">
-                  <div className="glass card-tilt rounded-2xl p-5">
-                    <span className="text-sm font-bold" style={{ fontFamily: 'var(--font-alt)', color: 'var(--accent)' }}>{item.year}</span>
-                    <h4 className="text-lg font-semibold text-white mt-1 mb-2" style={{ fontFamily: 'var(--font-alt)' }}>{item.title}</h4>
-                    <p className="text-sm" style={{ fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{item.desc}</p>
-                  </div>
-                </div>
-                <div className="hidden sm:block sm:w-1/2" />
-              </div>
-            ))}
           </div>
         </div>
       </div>

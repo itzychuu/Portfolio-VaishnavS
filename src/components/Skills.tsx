@@ -19,8 +19,6 @@ const categories = [
       { name: 'Node.js',  level: 90 },
       { name: 'Express',  level: 85 },
       { name: 'Python',   level: 80 },
-      { name: 'GraphQL',  level: 78 },
-      { name: 'tRPC',     level: 75 },
     ],
   },
   {
@@ -39,19 +37,7 @@ const categories = [
     skills: [
       { name: 'PostgreSQL', level: 88 },
       { name: 'MongoDB',    level: 82 },
-      { name: 'Redis',      level: 78 },
       { name: 'Supabase',   level: 90 },
-      { name: 'Prisma',     level: 85 },
-    ],
-  },
-  {
-    name: 'Cloud',
-    icon: Cloud,
-    skills: [
-      { name: 'AWS',         level: 80 },
-      { name: 'Vercel',      level: 92 },
-      { name: 'Cloudflare',  level: 82 },
-      { name: 'Docker',      level: 78 },
     ],
   },
   {
@@ -61,17 +47,6 @@ const categories = [
       { name: 'CI/CD',       level: 82 },
       { name: 'GitHub Actions', level: 85 },
       { name: 'Kubernetes',  level: 70 },
-      { name: 'Terraform',   level: 68 },
-    ],
-  },
-  {
-    name: 'AI',
-    icon: BrainCircuit,
-    skills: [
-      { name: 'OpenAI API',  level: 85 },
-      { name: 'LangChain',   level: 78 },
-      { name: 'Vector DBs',  level: 75 },
-      { name: 'RAG Systems', level: 72 },
     ],
   },
   {
@@ -91,7 +66,6 @@ const categories = [
       { name: 'Git',        level: 95 },
       { name: 'VS Code',    level: 95 },
       { name: 'Postman',    level: 88 },
-      { name: 'Jira',       level: 80 },
     ],
   },
   {
@@ -99,9 +73,10 @@ const categories = [
     icon: Globe,
     skills: [
       { name: 'JavaScript', level: 95 },
+      { name: 'C/C++',      level: 92 },
+      { name: 'Java',       level: 90 },
       { name: 'TypeScript', level: 92 },
       { name: 'Python',     level: 80 },
-      { name: 'Rust',       level: 65 },
       { name: 'SQL',        level: 88 },
     ],
   },
