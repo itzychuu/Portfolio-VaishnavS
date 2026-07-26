@@ -1,11 +1,10 @@
 import { Github, Linkedin, Twitter, Instagram, Dribbble, ArrowUp } from 'lucide-react';
 
 const socials = [
-  { icon: Github,    href: 'https://github.com/vaishnavs',         label: 'GitHub' },
-  { icon: Linkedin,  href: 'https://linkedin.com/in/vaishnavs',     label: 'LinkedIn' },
-  { icon: Twitter,   href: 'https://twitter.com/vaishnavs',        label: 'Twitter' },
-  { icon: Instagram, href: 'https://instagram.com/vaishnavs',      label: 'Instagram' },
-  { icon: Dribbble,  href: 'https://dribbble.com/vaishnavs',        label: 'Dribbble' },
+  { icon: Linkedin,   href: 'https://linkedin.com/in/1920-vaishnav-s',   label: 'LinkedIn' },
+  { icon: Github,     href: 'https://github.com/itzychuu',         label: 'GitHub' },
+  { icon: Twitter,    href: 'https://x.com/_why_choo_',        label: 'X (Twitter)' },
+  { icon: Instagram,  href: 'https://www.instagram.com/_y._chuu._',      label: 'Instagram' }
 ];
 
 export default function Footer() {
@@ -17,7 +16,7 @@ export default function Footer() {
           className="text-5xl sm:text-7xl lg:text-9xl font-bold reveal"
           style={{ fontFamily: 'var(--font-display)', lineHeight: 0.9, letterSpacing: '0.01em' }}
         >
-          Let's Build Something <span style={{ color: 'var(--accent)' }}>Amazing</span>
+          Got Ideas? Let's Collab <span style={{ color: 'var(--accent)' }}><br></br>and Build Them Together</span>
         </h2>
       </div>
 

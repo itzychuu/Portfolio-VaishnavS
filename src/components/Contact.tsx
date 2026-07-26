@@ -8,11 +8,10 @@ const contactInfo = [
 ];
 
 const socials = [
-  { icon: Linkedin,   href: 'https://linkedin.com/in/vaishnavs',   label: 'LinkedIn' },
-  { icon: Github,     href: 'https://github.com/vaishnavs',         label: 'GitHub' },
-  { icon: Twitter,    href: 'https://twitter.com/vaishnavs',        label: 'X (Twitter)' },
-  { icon: Instagram,  href: 'https://instagram.com/vaishnavs',      label: 'Instagram' },
-  { icon: Dribbble,   href: 'https://dribbble.com/vaishnavs',       label: 'Dribbble' },
+  { icon: Linkedin,   href: 'https://linkedin.com/in/1920-vaishnav-s',   label: 'LinkedIn' },
+  { icon: Github,     href: 'https://github.com/itzychuu',         label: 'GitHub' },
+  { icon: Twitter,    href: 'https://x.com/_why_choo_',        label: 'X (Twitter)' },
+  { icon: Instagram,  href: 'https://www.instagram.com/_y._chuu._',      label: 'Instagram' }
 ];
 
 export default function Contact() {
@@ -51,7 +50,7 @@ export default function Contact() {
           className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-16 reveal delay-100"
           style={{ fontFamily: 'var(--font-display)', lineHeight: 0.95 }}
         >
-          Let's Create <span style={{ color: 'var(--accent)' }}>Together</span>
+          Let's Build <span style={{ color: 'var(--accent)' }}>Together</span>
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

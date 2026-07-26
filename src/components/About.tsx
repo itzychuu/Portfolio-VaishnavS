@@ -35,30 +35,37 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Left: profile */}
           <div className="lg:col-span-5 reveal-left">
-            <div className="relative mx-auto" style={{ maxWidth: 400 }}>
+            {/*
+              Wrapper controls the actual visible size — capped at 460px so it
+              can never exceed the column's real available width (~493px at
+              max viewport, per the 5/12 grid split with gap-12). TiltedCard
+              itself is told to fill 100% of this box rather than a fixed px
+              size, so it can never overflow into the right column.
+            */}
+            <div
+              className="relative mx-auto w-full"
+              style={{ maxWidth: 460, aspectRatio: '5 / 6' }}
+            >
               {/* Red glow, same as before — swapped to the new accent RGB */}
               <div
                 className="absolute -inset-4 rounded-3xl blur-3xl"
                 style={{ background: 'radial-gradient(circle, rgba(169,28,38,0.15), transparent 70%)' }}
               />
 
-              {/* Glass frame stays, image swapped for TiltedCard */}
-              <div className="relative glass rounded-3xl p-2" style={{ aspectRatio: '4 / 5' }}>
-                <TiltedCard
-                  imageSrc="../public/images/hero/vaishnav-s-about.jpeg"
-                  altText="Vaishnav S"
-                  captionText="Vaishnav S"
-                  containerHeight="300px"
-                  containerWidth="300px"
-                  imageHeight="300px"
-                  imageWidth="300px"
-                  rotateAmplitude={12}
-                  scaleOnHover={1.05}
-                  showMobileWarning={false}
-                  showTooltip
-                  displayOverlayContent
-                />
-              </div>
+              <TiltedCard
+                imageSrc="/images/hero/vaishnav-s-about.jpeg"
+                altText="Vaishnav S"
+                captionText="Vaishnav S"
+                containerHeight="100%"
+                containerWidth="100%"
+                imageHeight="100%"
+                imageWidth="100%"
+                rotateAmplitude={12}
+                scaleOnHover={1.05}
+                showMobileWarning={false}
+                showTooltip
+                displayOverlayContent
+              />
             </div>
           </div>
 
@@ -102,7 +109,7 @@ export default function About() {
               download
               className="btn-magnetic inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-semibold transition-all duration-300"
               style={{ background: 'var(--accent)', fontFamily: 'var(--font-alt)', letterSpacing: '0.05em' }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.boxShadow = '0 0 30px rgba(196,0,33,0.5)')}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.boxShadow = '0 0 30px rgba(169,28,38,0.5)')}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.boxShadow = 'none')}
             >
               <Download size={16} /> Download Resume
