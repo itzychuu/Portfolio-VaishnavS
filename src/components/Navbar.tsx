@@ -7,6 +7,7 @@ const links = [
   { label: 'Projects',     href: '#projects' },
   { label: 'Skills',       href: '#skills' },
   { label: 'Experience',   href: '#experience' },
+  { label: 'Certificates', href: '#certificates' },
   { label: 'Contact Me',   href: '#contact' },
 ];
 
@@ -31,7 +32,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="fixed top-0 left-0 w-full z-50"
+        className="fixed top-0 left-0 w-full z-50 page-load-nav"
         aria-label="Main navigation"
       >
         <div

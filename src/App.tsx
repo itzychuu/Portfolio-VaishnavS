@@ -7,6 +7,7 @@ import About from '@/components/About';
 import Projects from '@/components/Projects';
 import Skills from '@/components/Skills';
 import Experience from '@/components/Experience';
+import Certificates from '@/components/Certificates';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 
@@ -16,6 +17,8 @@ function App() {
 
   return (
     <>
+      {/* Page-load overlay: fades from solid black to transparent on every load */}
+      <div className="page-overlay" aria-hidden="true" />
       <Cursor />
       <Background />
       <div className="noise-overlay" />
@@ -27,6 +30,7 @@ function App() {
         <Projects />
         <Skills />
         <Experience />
+        <Certificates />
         <Contact />
       </main>
 

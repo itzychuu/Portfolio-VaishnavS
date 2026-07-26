@@ -12,13 +12,6 @@ const education = [
   { degree: 'Higher Secondary Education', institution: 'NSS Higher Secondary, Pandalam', period: '2021 - 2022',      achievements: ['89% scored'] },
 ];
 
-const certificates = [
-  'AWS Certified Developer Associate',
-  'Meta Front-End Developer',
-  'Google UX Design Professional',
-  'MongoDB Developer Certification',
-];
-
 export default function Experience() {
   return (
     <section id="experience" className="relative py-24 sm:py-32" style={{ zIndex: 2 }}>
@@ -61,12 +54,12 @@ export default function Experience() {
             </div>
           </div>
 
-          {/* Education & Certificates */}
+          {/* Education */}
           <div>
             <h3 className="flex items-center gap-2 text-xl font-semibold text-white mb-8 reveal" style={{ fontFamily: 'var(--font-alt)' }}>
               <GraduationCap size={20} style={{ color: 'var(--accent)' }} /> Education
             </h3>
-            <div className="space-y-4 mb-12">
+            <div className="space-y-4">
               {education.map((edu, i) => (
                 <div key={i} className="glass card-tilt rounded-2xl p-5 reveal-right" style={{ transitionDelay: `${i * 0.1}s` }}>
                   <span className="text-xs font-semibold" style={{ fontFamily: 'var(--font-alt)', color: 'var(--accent)', letterSpacing: '0.05em' }}>
@@ -81,21 +74,6 @@ export default function Experience() {
                       </li>
                     ))}
                   </ul>
-                </div>
-              ))}
-            </div>
-
-            {/* Certificates */}
-            <h3 className="flex items-center gap-2 text-xl font-semibold text-white mb-6 reveal" style={{ fontFamily: 'var(--font-alt)' }}>
-              <Award size={20} style={{ color: 'var(--accent)' }} /> Certificates
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {certificates.map((cert, i) => (
-                <div key={cert} className="glass rounded-xl p-4 flex items-center gap-3 reveal-scale" style={{ transitionDelay: `${i * 0.05}s` }}>
-                  <div className="flex items-center justify-center w-8 h-8 rounded-lg shrink-0" style={{ background: 'rgba(196,0,33,0.12)' }}>
-                    <Award size={14} style={{ color: 'var(--accent)' }} />
-                  </div>
-                  <span className="text-xs" style={{ fontFamily: 'var(--font-alt)', color: 'var(--text-secondary)' }}>{cert}</span>
                 </div>
               ))}
             </div>

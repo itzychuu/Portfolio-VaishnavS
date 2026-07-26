@@ -1,11 +1,7 @@
-import { useEffect, useRef } from 'react';
-import { Download } from 'lucide-react';
-
-import { Linkedin, Instagram, Github, Twitter } from 'lucide-react';
+import { Download, Linkedin, Instagram, Github, Twitter } from 'lucide-react';
+import RotatingText from './RotatingText/RotatingText';
 
 // Design reference: 1280 × 833 Figma frame.
-// All absolute layers below are positioned as % of that frame so they
-// scale proportionally with the section's actual rendered size.
 const FRAME_W = 1280;
 const FRAME_H = 833;
 
@@ -16,21 +12,9 @@ const LALEZAR = "'Lalezar', cursive";
 const INTER = "'Inter', sans-serif";
 
 export default function Hero() {
-  const photoRef = useRef<HTMLImageElement>(null);
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      if (!photoRef.current) return;
-      const x = (e.clientX / window.innerWidth - 0.5) * 16;
-      const y = (e.clientY / window.innerHeight - 0.5) * 16;
-      photoRef.current.style.transform = `translate3d(calc(-50% + ${x * 0.4}px), ${y * 0.3}px, 0)`;
-    };
-    window.addEventListener('mousemove', onMove, { passive: true });
-    return () => window.removeEventListener('mousemove', onMove);
-  }, []);
-
+  // Shifted up so the horizontal center of 'h' and 'n' aligns directly at eye-level
   const nameLayerStyle = {
-    top: `${(243 / FRAME_H) * 100}%`,
+    top: `${(150 / FRAME_H) * 100}%`,
     transform: 'translate3d(-50%, 0, 0)',
     width: `${(984 / FRAME_W) * 100}%`,
     height: 'auto',
@@ -39,11 +23,11 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen overflow-hidden pt-24 bg-black"
+      className="relative min-h-screen overflow-hidden pt-20 bg-black flex flex-col justify-between"
     >
-      {/* LeftSideRectangle — X0 Y-87 W640 H833, fill #A91C26, blur 300 */}
+      {/* Background Glow - Left (Red) */}
       <div
-        className="absolute pointer-events-none select-none"
+        className="absolute pointer-events-none select-none page-load-glow-left"
         style={{
           left: '0%',
           top: `${(-87 / FRAME_H) * 100}%`,
@@ -55,9 +39,9 @@ export default function Hero() {
         }}
       />
 
-      {/* RightSideRectangle — X640 Y-87 W640 H833, fill #188F87, blur 300 */}
+      {/* Background Glow - Right (Teal) */}
       <div
-        className="absolute pointer-events-none select-none"
+        className="absolute pointer-events-none select-none page-load-glow-right"
         style={{
           left: `${(640 / FRAME_W) * 100}%`,
           top: `${(-87 / FRAME_H) * 100}%`,
@@ -69,12 +53,12 @@ export default function Hero() {
         }}
       />
 
-      {/* Vaishnav-S — layer 1 (back): gradient fill, no stroke. Sits BEHIND the photo. */}
+      {/* Vaishnav-S — Layer 1 (Back): Gradient fill, sits BEHIND the photo */}
       <svg
         viewBox="0 0 984 345"
         preserveAspectRatio="xMidYMid meet"
         aria-hidden="true"
-        className="absolute left-1/2 pointer-events-none select-none"
+        className="absolute left-1/2 pointer-events-none select-none page-load-name"
         style={{ ...nameLayerStyle, zIndex: 1 }}
       >
         <defs>
@@ -96,30 +80,27 @@ export default function Hero() {
         </text>
       </svg>
 
-      {/* Portrait — transparent-bg cutout, duotone baked in. Sandwiched between the two text layers. */}
+      {/* Portrait cutout - Fully Static */}
       <img
-        ref={photoRef}
         src="/images/hero/vaishnav-s-bg-rm.png"
-        alt="Vaishnav S — Full Stack Developer and UI/UX Designer portrait"
-        className="absolute left-1/2 pointer-events-none select-none"
+        alt="Vaishnav S portrait"
+        className="absolute left-1/2 bottom-0 pointer-events-none select-none page-load-portrait"
         style={{
-          top: '4.5rem',
-          height: '92%',
+          height: '88%',
           width: 'auto',
           maxWidth: 'none',
           objectFit: 'contain',
           zIndex: 2,
-          transform: 'translate3d(-50%, 0, 0)',
-          transition: 'transform 0.2s ease-out',
+          transform: 'translateX(-50%)',
         }}
       />
 
-      {/* Vaishnav-S-1 — layer 2 (front): no fill, gradient stroke only. Sits ON TOP of the photo. */}
+      {/* Vaishnav-S-1 — Layer 2 (Front): Gradient stroke only, sits ON TOP of the photo */}
       <svg
         viewBox="0 0 984 345"
         preserveAspectRatio="xMidYMid meet"
         aria-hidden="true"
-        className="absolute left-1/2 pointer-events-none select-none"
+        className="absolute left-1/2 pointer-events-none select-none page-load-name-front"
         style={{ ...nameLayerStyle, zIndex: 3 }}
       >
         <defs>
@@ -143,83 +124,117 @@ export default function Hero() {
         </text>
       </svg>
 
-      {/* Foreground content */}
-      <div
-        className="relative flex flex-col justify-end"
-        style={{ zIndex: 4, minHeight: 'calc(100vh - 6rem)' }}
-      >
-        <div className="max-w-7xl mx-auto w-full px-6 pb-16 grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
-          {/* Left: title + description */}
-          <div className="lg:col-span-6">
+      {/* Flexible spacer creating clear vertical separation */}
+      <div className="flex-1 min-h-[40px]" />
+
+      {/* Foreground Content Layer - Shifted Upwards */}
+      <div className="relative w-full z-10 pb-16 md:pb-20 -translate-y-6 md:-translate-y-10">
+        <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+          
+          {/* Left Side: Title + Description */}
+          <div className="lg:col-span-6 page-load-content-left">
             <h2
-              className="text-white mb-4 leading-snug"
-              style={{ fontFamily: LALEZAR, fontSize: 24 }}
+              className="text-white mb-3 leading-snug flex flex-wrap items-center gap-x-2"
+              style={{ fontFamily: LALEZAR, fontSize: 36 }}
             >
-              Full Stack Developer, UI/UX Designer
-              <br />
-              &amp; Cyber Security Enthusiast
+              <RotatingText
+                texts={['Full Stack Developer', 'UI/UX Designer', 'Cybersecurity Enthusiast']}
+                mainClassName="text-[#188F87] overflow-hidden justify-start inline-flex"
+                staggerFrom="last"
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                exit={{ y: '-120%' }}
+                staggerDuration={0.025}
+                splitLevelClassName="overflow-hidden pb-0.5"
+                transition={{ type: 'spring', damping: 30, stiffness: 400 }}
+                rotationInterval={2500}
+                splitBy="characters"
+                auto
+                loop
+              />
             </h2>
             <p
               className="max-w-md leading-relaxed"
-              style={{ fontFamily: LALEZAR, fontSize: 16, color: 'rgba(255,255,255,0.75)' }}
+              style={{
+                fontFamily: INTER,
+                fontSize: 15,
+                fontWeight: 400,
+                color: 'rgba(255,255,255,0.85)',
+              }}
             >
-              I craft premium digital experiences where cutting-edge engineering meets
-              cinematic design. Passionate about building performant, accessible, and
-              visually stunning products that leave a lasting impression.
+              I craft premium digital experiences where cutting-edge engineering
+              meets cinematic design. Passionate about building performant,
+              accessible, and visually stunning products that leave a lasting
+              impression.
             </p>
           </div>
 
-          {/* Right: buttons + socials */}
-          <div className="lg:col-span-6 flex flex-col items-start lg:items-end gap-5">
-            <div className="flex flex-wrap gap-4">
+          {/* Right Side: Buttons + Social Links */}
+          <div className="lg:col-span-6 flex flex-col items-start lg:items-end gap-5 page-load-content-right">
+            {/* CTA Buttons */}
+            <div className="flex items-center gap-4">
               <a
                 href="#contact"
                 className="inline-flex items-center justify-center rounded-full transition-transform duration-200 hover:scale-105"
                 style={{
-                  width: 178,
-                  height: 53,
+                  width: 160,
+                  height: 48,
                   background: 'transparent',
-                  border: `2px solid ${RED}`,
+                  border: `1.5px solid ${RED}`,
                   color: RED,
                   fontFamily: INTER,
                   fontWeight: 700,
-                  fontSize: 20,
+                  fontSize: 18,
                 }}
               >
                 Contact me
               </a>
+
               <a
-              href="/resume.pdf"
-              download
-              className="btn-magnetic inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-semibold transition-all duration-300"
-              style={{ background: 'var(--accent)', fontFamily: 'var(--font-alt)', letterSpacing: '0.05em' }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.boxShadow = '0 0 30px rgba(196,0,33,0.5)')}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.boxShadow = 'none')}
-            >
-              <Download size={16} /> Download Resume
-            </a>
+                href="/Documents/VaishnavResume.pdf"
+                download
+                className="inline-flex items-center justify-center rounded-full transition-transform duration-200 hover:scale-105"
+                style={{
+                  width: 160,
+                  height: 48,
+                  background: RED,
+                  color: '#FFFFFF',
+                  fontFamily: INTER,
+                  fontWeight: 700,
+                  fontSize: 18,
+                }}
+              >
+                Resume
+              </a>
             </div>
 
-            <div className="flex items-center gap-6">
-              {[
-                { Icon: Linkedin, href: 'https://linkedin.com/in/1920-vaishnav-s', label: 'LinkedIn' },
-                { Icon: Instagram, href: 'https://www.instagram.com/_y._chuu._', label: 'Instagram' },
-                { Icon: Github, href: 'https://github.com/itzychuu', label: 'GitHub' },
-                { Icon: Twitter, href: 'https://x.com/_why_choo_', label: 'Twitter' },
-              ].map(({ Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="rounded-full p-2.5 flex items-center justify-center transition-all duration-200 hover:scale-110"
-                  style={{ background: 'transparent', border: `1.5px solid ${RED}` }}
-                >
-                  <Icon size={16} color={RED} />
-                </a>
-              ))}
+            {/* Social Icons Centered relative to the buttons container */}
+            <div className="w-[336px] flex justify-center">
+              <div className="flex items-center gap-5">
+                {[
+                  { Icon: Linkedin, href: 'https://linkedin.com/in/1920-vaishnav-s', label: 'LinkedIn' },
+                  { Icon: Instagram, href: 'https://www.instagram.com/_y._chuu._', label: 'Instagram' },
+                  { Icon: Github, href: 'https://github.com/itzychuu', label: 'GitHub' },
+                  { Icon: Twitter, href: 'https://x.com/_why_choo_', label: 'Twitter' },
+                ].map(({ Icon, href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="rounded-full p-2.5 flex items-center justify-center transition-transform duration-200 hover:scale-110"
+                    style={{
+                      background: 'transparent',
+                      border: `1.5px solid ${RED}`,
+                    }}
+                  >
+                    <Icon size={18} color={RED} />
+                  </a>
+                ))}
+              </div>
             </div>
+
           </div>
         </div>
       </div>

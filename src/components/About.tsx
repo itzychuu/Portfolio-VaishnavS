@@ -102,18 +102,6 @@ export default function About() {
               <Counter value={40} label="Projects" />
               <Counter value={80} label="Repositories" />
             </div>
-
-            {/* Download resume */}
-            <a
-              href="/resume.pdf"
-              download
-              className="btn-magnetic inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-semibold transition-all duration-300"
-              style={{ background: 'var(--accent)', fontFamily: 'var(--font-alt)', letterSpacing: '0.05em' }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.boxShadow = '0 0 30px rgba(169,28,38,0.5)')}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.boxShadow = 'none')}
-            >
-              <Download size={16} /> Download Resume
-            </a>
           </div>
         </div>
       </div>
