@@ -7,19 +7,12 @@ const links = [
   { label: 'Projects',     href: '#projects' },
   { label: 'Skills',       href: '#skills' },
   { label: 'Experience',   href: '#experience' },
-  { label: 'Contact',      href: '#contact' },
+  { label: 'Contact Me',   href: '#contact' },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [active, setActive]     = useState('#home');
-  const [open, setOpen]         = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  const [active, setActive] = useState('#home');
+  const [open, setOpen]     = useState(false);
 
   useEffect(() => {
     const sections = links.map((l) => document.querySelector(l.href));
@@ -38,59 +31,43 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ${
-          scrolled ? 'glass shadow-lg' : 'glass'
-        }`}
-        style={{
-          borderRadius: '100px',
-          padding: '10px 24px',
-          minWidth: 'min(720px, calc(100vw - 32px))',
-          maxWidth: 'calc(100vw - 32px)',
-        }}
+        className="fixed top-0 left-0 w-full z-50"
         aria-label="Main navigation"
       >
-        <div className="flex items-center justify-between gap-6">
+        <div
+          className="flex items-center justify-between mx-auto"
+          style={{
+            maxWidth: '1400px',
+            padding: '28px 32px',
+          }}
+        >
           {/* Logo */}
           <a
             href="#home"
-            className="flex items-center gap-2 group shrink-0"
-            style={{ cursor: 'none' }}
+            className="text-white font-bold text-lg tracking-tight"
+            style={{ fontFamily: 'var(--font-alt, sans-serif)' }}
           >
-            <span
-              className="flex items-center justify-center w-8 h-8 rounded-full text-white font-bold text-sm"
-              style={{ background: 'var(--accent)', fontFamily: 'var(--font-alt)' }}
-            >
-              V
-            </span>
-            <span
-              className="text-white font-semibold text-sm hidden sm:block"
-              style={{ fontFamily: 'var(--font-alt)', letterSpacing: '0.05em' }}
-            >
-              VAISHNAV<span style={{ color: 'var(--accent)' }}>.</span>S
-            </span>
+            Vaishnav S
           </a>
 
           {/* Desktop links */}
-          <ul className="hidden lg:flex items-center gap-1">
+          <ul className="hidden lg:flex items-center gap-20">
             {links.map((l) => (
               <li key={l.href}>
                 <a
                   href={l.href}
-                  className="relative px-3 py-1.5 text-xs font-medium transition-colors duration-200"
+                  className="text-sm transition-colors duration-200"
                   style={{
-                    fontFamily: 'var(--font-alt)',
-                    letterSpacing: '0.06em',
-                    color: active === l.href ? '#fff' : 'rgba(255,255,255,0.5)',
-                    cursor: 'none',
+                    fontFamily: 'var(--font-alt, sans-serif)',
+                    color: active === l.href ? '#ffffff' : 'rgba(255,255,255,0.55)',
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#ffffff')}
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color =
+                      active === l.href ? '#ffffff' : 'rgba(255,255,255,0.55)')
+                  }
                 >
-                  {active === l.href && (
-                    <span
-                      className="absolute inset-0 rounded-full"
-                      style={{ background: 'rgba(196,0,33,0.15)', border: '1px solid rgba(196,0,33,0.3)' }}
-                    />
-                  )}
-                  <span className="relative">{l.label}</span>
+                  {l.label}
                 </a>
               </li>
             ))}
@@ -100,10 +77,10 @@ export default function Navbar() {
           <button
             className="lg:hidden text-white"
             onClick={() => setOpen(!open)}
-            style={{ cursor: 'none', background: 'none', border: 'none' }}
+            style={{ background: 'none', border: 'none' }}
             aria-label="Toggle menu"
           >
-            {open ? <X size={20} /> : <Menu size={20} />}
+            {open ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </nav>
@@ -111,17 +88,16 @@ export default function Navbar() {
       {/* Mobile menu */}
       {open && (
         <div
-          className="fixed inset-0 z-40 flex flex-col items-center justify-center glass"
-          style={{ background: 'rgba(5,5,5,0.97)' }}
+          className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-black"
         >
-          <ul className="flex flex-col items-center gap-6">
+          <ul className="flex flex-col items-center gap-8">
             {links.map((l) => (
               <li key={l.href}>
                 <a
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="text-2xl font-semibold text-white transition-colors hover:text-red-500"
-                  style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.1em', cursor: 'none' }}
+                  className="text-2xl font-medium text-white"
+                  style={{ fontFamily: 'var(--font-alt, sans-serif)' }}
                 >
                   {l.label}
                 </a>
@@ -131,7 +107,7 @@ export default function Navbar() {
           <button
             onClick={() => setOpen(false)}
             className="absolute top-6 right-6 text-white"
-            style={{ cursor: 'none', background: 'none', border: 'none' }}
+            style={{ background: 'none', border: 'none' }}
           >
             <X size={24} />
           </button>

@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, Instagram, Dribbble } from 'lucide-react';
 
 const contactInfo = [
-  { icon: Mail,    label: 'Email',    value: 'hello@vaishnavs.dev',   href: 'mailto:hello@vaishnavs.dev' },
-  { icon: Phone,   label: 'Phone',    value: '+91 98765 43210',       href: 'tel:+919876543210' },
-  { icon: MapPin,   label: 'Location', value: 'India',                 href: '#' },
+  { icon: Mail,    label: 'Email',    value: 'vaishnavshalkumar49@gmail.com',   href: 'mailto:vaishnavshalkumar49@gmail.com' },
+  { icon: Phone,   label: 'Phone',    value: '+91 85476 12760',       href: 'tel:+918547612760' },
+  { icon: MapPin,   label: 'Location', value: 'Pandalam, Pathanamthitta, Kerala, India',                 href: '#' },
 ];
 
 const socials = [

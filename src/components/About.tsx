@@ -1,5 +1,6 @@
 import { Download, Target, Eye, Award } from 'lucide-react';
 import { useCounter } from '@/hooks/useScrollReveal';
+import TiltedCard from './TiltedCard/TiltedCard.tsx';
 
 function Counter({ value, label }: { value: number; label: string }) {
   const ref = useCounter(value);
@@ -34,20 +35,28 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Left: profile */}
           <div className="lg:col-span-5 reveal-left">
-            <div className="relative">
+            <div className="relative mx-auto" style={{ maxWidth: 400 }}>
+              {/* Red glow, same as before — swapped to the new accent RGB */}
               <div
                 className="absolute -inset-4 rounded-3xl blur-3xl"
-                style={{ background: 'radial-gradient(circle, rgba(196,0,33,0.15), transparent 70%)' }}
+                style={{ background: 'radial-gradient(circle, rgba(169,28,38,0.15), transparent 70%)' }}
               />
-              <div className="relative glass rounded-3xl p-2">
-                <img
-                  src="/images/vaishnav-s2.png"
-                  alt="Vaishnav S portrait"
-                  className="w-full rounded-2xl object-cover"
-                  style={{ aspectRatio: '4/5' }}
-                  loading="lazy"
-                  width={400}
-                  height={500}
+
+              {/* Glass frame stays, image swapped for TiltedCard */}
+              <div className="relative glass rounded-3xl p-2" style={{ aspectRatio: '4 / 5' }}>
+                <TiltedCard
+                  imageSrc="../public/images/hero/vaishnav-s-about.jpeg"
+                  altText="Vaishnav S"
+                  captionText="Vaishnav S"
+                  containerHeight="300px"
+                  containerWidth="300px"
+                  imageHeight="300px"
+                  imageWidth="300px"
+                  rotateAmplitude={12}
+                  scaleOnHover={1.05}
+                  showMobileWarning={false}
+                  showTooltip
+                  displayOverlayContent
                 />
               </div>
             </div>
@@ -84,7 +93,7 @@ export default function About() {
             <div className="grid grid-cols-3 gap-4 mb-10">
               <Counter value={3} label="Years" />
               <Counter value={40} label="Projects" />
-              <Counter value={20} label="Clients" />
+              <Counter value={80} label="Repositories" />
             </div>
 
             {/* Download resume */}
