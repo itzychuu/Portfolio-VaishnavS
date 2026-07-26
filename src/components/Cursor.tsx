@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface ColorRGB {
   r: number;
@@ -59,7 +59,7 @@ function pointerPrototype(): Pointer {
   };
 }
 
-export default function SplashCursor({
+export default function Cursor({
   SIM_RESOLUTION = 128,
   DYE_RESOLUTION = 1440,
   CAPTURE_RESOLUTION = 512,
@@ -75,7 +75,7 @@ export default function SplashCursor({
   BACK_COLOR = { r: 0.5, g: 0, b: 0 },
   TRANSPARENT = true,
   RAINBOW_MODE = true,
-  COLOR = '#ff0000'
+  COLOR = '#a91c26'
 }: SplashCursorProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -83,21 +83,21 @@ export default function SplashCursor({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    let pointers: Pointer[] = [pointerPrototype()];
+    const pointers: Pointer[] = [pointerPrototype()];
 
-    let config = {
-      SIM_RESOLUTION: SIM_RESOLUTION!,
-      DYE_RESOLUTION: DYE_RESOLUTION!,
-      CAPTURE_RESOLUTION: CAPTURE_RESOLUTION!,
-      DENSITY_DISSIPATION: DENSITY_DISSIPATION!,
-      VELOCITY_DISSIPATION: VELOCITY_DISSIPATION!,
-      PRESSURE: PRESSURE!,
-      PRESSURE_ITERATIONS: PRESSURE_ITERATIONS!,
-      CURL: CURL!,
-      SPLAT_RADIUS: SPLAT_RADIUS!,
-      SPLAT_FORCE: SPLAT_FORCE!,
+    const config = {
+      SIM_RESOLUTION,
+      DYE_RESOLUTION,
+      CAPTURE_RESOLUTION,
+      DENSITY_DISSIPATION,
+      VELOCITY_DISSIPATION,
+      PRESSURE,
+      PRESSURE_ITERATIONS,
+      CURL,
+      SPLAT_RADIUS,
+      SPLAT_FORCE,
       SHADING,
-      COLOR_UPDATE_SPEED: COLOR_UPDATE_SPEED!,
+      COLOR_UPDATE_SPEED,
       PAUSED: false,
       BACK_COLOR,
       TRANSPARENT,
@@ -105,7 +105,17 @@ export default function SplashCursor({
       COLOR
     };
 
-    const { gl, ext } = getWebGLContext(canvas);
+    let gl: WebGLRenderingContext | WebGL2RenderingContext | null = null;
+    let ext: any = null;
+
+    try {
+      const ctxData = getWebGLContext(canvas);
+      gl = ctxData.gl;
+      ext = ctxData.ext;
+    } catch {
+      return;
+    }
+
     if (!gl || !ext) return;
 
     if (!ext.supportLinearFiltering) {
@@ -122,34 +132,34 @@ export default function SplashCursor({
         preserveDrawingBuffer: false
       };
 
-      let gl = canvas.getContext('webgl2', params) as WebGL2RenderingContext | null;
+      let glCtx = canvas.getContext('webgl2', params) as WebGL2RenderingContext | null;
 
-      if (!gl) {
-        gl = (canvas.getContext('webgl', params) ||
+      if (!glCtx) {
+        glCtx = (canvas.getContext('webgl', params) ||
           canvas.getContext('experimental-webgl', params)) as WebGL2RenderingContext | null;
       }
 
-      if (!gl) {
+      if (!glCtx) {
         throw new Error('Unable to initialize WebGL.');
       }
 
-      const isWebGL2 = 'drawBuffers' in gl;
+      const isWebGL2 = 'drawBuffers' in glCtx;
 
       let supportLinearFiltering = false;
       let halfFloat: OES_texture_half_float | null = null;
 
       if (isWebGL2) {
-        (gl as WebGL2RenderingContext).getExtension('EXT_color_buffer_float');
-        supportLinearFiltering = !!(gl as WebGL2RenderingContext).getExtension('OES_texture_float_linear');
+        (glCtx as WebGL2RenderingContext).getExtension('EXT_color_buffer_float');
+        supportLinearFiltering = !!(glCtx as WebGL2RenderingContext).getExtension('OES_texture_float_linear');
       } else {
-        halfFloat = gl.getExtension('OES_texture_half_float');
-        supportLinearFiltering = !!gl.getExtension('OES_texture_half_float_linear');
+        halfFloat = glCtx.getExtension('OES_texture_half_float');
+        supportLinearFiltering = !!glCtx.getExtension('OES_texture_half_float_linear');
       }
 
-      gl.clearColor(0, 0, 0, 1);
+      glCtx.clearColor(0, 0, 0, 0);
 
       const halfFloatTexType = isWebGL2
-        ? (gl as WebGL2RenderingContext).HALF_FLOAT
+        ? (glCtx as WebGL2RenderingContext).HALF_FLOAT
         : (halfFloat && halfFloat.HALF_FLOAT_OES) || 0;
 
       let formatRGBA: TextureFormat | null;
@@ -157,23 +167,23 @@ export default function SplashCursor({
       let formatR: TextureFormat | null;
 
       if (isWebGL2) {
-        formatRGBA = getSupportedFormat(gl, (gl as WebGL2RenderingContext).RGBA16F, gl.RGBA, halfFloatTexType);
+        formatRGBA = getSupportedFormat(glCtx, (glCtx as WebGL2RenderingContext).RGBA16F, glCtx.RGBA, halfFloatTexType);
         formatRG = getSupportedFormat(
-          gl,
-          (gl as WebGL2RenderingContext).RG16F,
-          (gl as WebGL2RenderingContext).RG,
+          glCtx,
+          (glCtx as WebGL2RenderingContext).RG16F,
+          (glCtx as WebGL2RenderingContext).RG,
           halfFloatTexType
         );
         formatR = getSupportedFormat(
-          gl,
-          (gl as WebGL2RenderingContext).R16F,
-          (gl as WebGL2RenderingContext).RED,
+          glCtx,
+          (glCtx as WebGL2RenderingContext).R16F,
+          (glCtx as WebGL2RenderingContext).RED,
           halfFloatTexType
         );
       } else {
-        formatRGBA = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
-        formatRG = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
-        formatR = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
+        formatRGBA = getSupportedFormat(glCtx, glCtx.RGBA, glCtx.RGBA, halfFloatTexType);
+        formatRG = getSupportedFormat(glCtx, glCtx.RGBA, glCtx.RGBA, halfFloatTexType);
+        formatR = getSupportedFormat(glCtx, glCtx.RGBA, glCtx.RGBA, halfFloatTexType);
       }
 
       if (!formatRGBA || !formatRG || !formatR) {
@@ -181,7 +191,7 @@ export default function SplashCursor({
       }
 
       return {
-        gl,
+        gl: glCtx,
         ext: {
           formatRGBA,
           formatRG,
@@ -193,14 +203,14 @@ export default function SplashCursor({
     }
 
     function getSupportedFormat(
-      gl: WebGLRenderingContext | WebGL2RenderingContext,
+      glCtx: WebGLRenderingContext | WebGL2RenderingContext,
       internalFormat: number,
       format: number,
       type: number
     ): TextureFormat | null {
-      if (!supportRenderTextureFormat(gl, internalFormat, format, type)) {
-        if ('drawBuffers' in gl) {
-          const gl2 = gl as WebGL2RenderingContext;
+      if (!supportRenderTextureFormat(glCtx, internalFormat, format, type)) {
+        if ('drawBuffers' in glCtx) {
+          const gl2 = glCtx as WebGL2RenderingContext;
           switch (internalFormat) {
             case gl2.R16F:
               return getSupportedFormat(gl2, gl2.RG16F, gl2.RG, type);
@@ -216,28 +226,28 @@ export default function SplashCursor({
     }
 
     function supportRenderTextureFormat(
-      gl: WebGLRenderingContext | WebGL2RenderingContext,
+      glCtx: WebGLRenderingContext | WebGL2RenderingContext,
       internalFormat: number,
       format: number,
       type: number
     ) {
-      const texture = gl.createTexture();
+      const texture = glCtx.createTexture();
       if (!texture) return false;
 
-      gl.bindTexture(gl.TEXTURE_2D, texture);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, 4, 4, 0, format, type, null);
+      glCtx.bindTexture(glCtx.TEXTURE_2D, texture);
+      glCtx.texParameteri(glCtx.TEXTURE_2D, glCtx.TEXTURE_MIN_FILTER, glCtx.NEAREST);
+      glCtx.texParameteri(glCtx.TEXTURE_2D, glCtx.TEXTURE_MAG_FILTER, glCtx.NEAREST);
+      glCtx.texParameteri(glCtx.TEXTURE_2D, glCtx.TEXTURE_WRAP_S, glCtx.CLAMP_TO_EDGE);
+      glCtx.texParameteri(glCtx.TEXTURE_2D, glCtx.TEXTURE_WRAP_T, glCtx.CLAMP_TO_EDGE);
+      glCtx.texImage2D(glCtx.TEXTURE_2D, 0, internalFormat, 4, 4, 0, format, type, null);
 
-      const fbo = gl.createFramebuffer();
+      const fbo = glCtx.createFramebuffer();
       if (!fbo) return false;
 
-      gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
-      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
-      const status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
-      return status === gl.FRAMEBUFFER_COMPLETE;
+      glCtx.bindFramebuffer(glCtx.FRAMEBUFFER, fbo);
+      glCtx.framebufferTexture2D(glCtx.FRAMEBUFFER, glCtx.COLOR_ATTACHMENT0, glCtx.TEXTURE_2D, texture, 0);
+      const status = glCtx.checkFramebufferStatus(glCtx.FRAMEBUFFER);
+      return status === glCtx.FRAMEBUFFER_COMPLETE;
     }
 
     function hashCode(s: string) {
@@ -261,36 +271,36 @@ export default function SplashCursor({
 
     function compileShader(type: number, source: string, keywords: string[] | null = null): WebGLShader | null {
       const shaderSource = addKeywords(source, keywords);
-      const shader = gl.createShader(type);
+      const shader = gl!.createShader(type);
       if (!shader) return null;
-      gl.shaderSource(shader, shaderSource);
-      gl.compileShader(shader);
-      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.trace(gl.getShaderInfoLog(shader));
+      gl!.shaderSource(shader, shaderSource);
+      gl!.compileShader(shader);
+      if (!gl!.getShaderParameter(shader, gl!.COMPILE_STATUS)) {
+        console.trace(gl!.getShaderInfoLog(shader));
       }
       return shader;
     }
 
     function createProgram(vertexShader: WebGLShader | null, fragmentShader: WebGLShader | null): WebGLProgram | null {
       if (!vertexShader || !fragmentShader) return null;
-      const program = gl.createProgram();
+      const program = gl!.createProgram();
       if (!program) return null;
-      gl.attachShader(program, vertexShader);
-      gl.attachShader(program, fragmentShader);
-      gl.linkProgram(program);
-      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        console.trace(gl.getProgramInfoLog(program));
+      gl!.attachShader(program, vertexShader);
+      gl!.attachShader(program, fragmentShader);
+      gl!.linkProgram(program);
+      if (!gl!.getProgramParameter(program, gl!.LINK_STATUS)) {
+        console.trace(gl!.getProgramInfoLog(program));
       }
       return program;
     }
 
     function getUniforms(program: WebGLProgram) {
-      let uniforms: Record<string, WebGLUniformLocation | null> = {};
-      const uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
+      const uniforms: Record<string, WebGLUniformLocation | null> = {};
+      const uniformCount = gl!.getProgramParameter(program, gl!.ACTIVE_UNIFORMS);
       for (let i = 0; i < uniformCount; i++) {
-        const uniformInfo = gl.getActiveUniform(program, i);
+        const uniformInfo = gl!.getActiveUniform(program, i);
         if (uniformInfo) {
-          uniforms[uniformInfo.name] = gl.getUniformLocation(program, uniformInfo.name);
+          uniforms[uniformInfo.name] = gl!.getUniformLocation(program, uniformInfo.name);
         }
       }
       return uniforms;
@@ -306,7 +316,7 @@ export default function SplashCursor({
       }
 
       bind() {
-        if (this.program) gl.useProgram(this.program);
+        if (this.program) gl!.useProgram(this.program);
       }
     }
 
@@ -332,7 +342,7 @@ export default function SplashCursor({
         }
         let program = this.programs[hash];
         if (program == null) {
-          const fragmentShader = compileShader(gl.FRAGMENT_SHADER, this.fragmentShaderSource, keywords);
+          const fragmentShader = compileShader(gl!.FRAGMENT_SHADER, this.fragmentShaderSource, keywords);
           program = createProgram(this.vertexShader, fragmentShader);
           this.programs[hash] = program;
         }
@@ -345,7 +355,7 @@ export default function SplashCursor({
 
       bind() {
         if (this.activeProgram) {
-          gl.useProgram(this.activeProgram);
+          gl!.useProgram(this.activeProgram);
         }
       }
     }
@@ -411,33 +421,9 @@ export default function SplashCursor({
       varying vec2 vT;
       varying vec2 vB;
       uniform sampler2D uTexture;
-      uniform sampler2D uDithering;
-      uniform vec2 ditherScale;
-      uniform vec2 texelSize;
-
-      vec3 linearToGamma (vec3 color) {
-          color = max(color, vec3(0));
-          return max(1.055 * pow(color, vec3(0.416666667)) - 0.055, vec3(0));
-      }
 
       void main () {
           vec3 c = texture2D(uTexture, vUv).rgb;
-          #ifdef SHADING
-              vec3 lc = texture2D(uTexture, vL).rgb;
-              vec3 rc = texture2D(uTexture, vR).rgb;
-              vec3 tc = texture2D(uTexture, vT).rgb;
-              vec3 bc = texture2D(uTexture, vB).rgb;
-
-              float dx = length(rc) - length(lc);
-              float dy = length(tc) - length(bc);
-
-              vec3 n = normalize(vec3(dx, dy, length(texelSize)));
-              vec3 l = vec3(0.0, 0.0, 1.0);
-
-              float diffuse = clamp(dot(n, l) + 0.7, 0.7, 1.0);
-              c *= diffuse;
-          #endif
-
           float a = max(c.r, max(c.g, c.b));
           gl_FragColor = vec4(c, a);
       }
@@ -612,7 +598,6 @@ export default function SplashCursor({
           float R = texture2D(uPressure, vR).x;
           float T = texture2D(uPressure, vT).x;
           float B = texture2D(uPressure, vB).x;
-          float C = texture2D(uPressure, vUv).x;
           float divergence = texture2D(uDivergence, vUv).x;
           float pressure = (L + R + B + T - divergence) * 0.25;
           gl_FragColor = vec4(pressure, 0.0, 0.0, 1.0);
@@ -665,7 +650,7 @@ export default function SplashCursor({
           gl.bindFramebuffer(gl.FRAMEBUFFER, target.fbo);
         }
         if (doClear) {
-          gl.clearColor(0, 0, 0, 1);
+          gl.clearColor(0, 0, 0, 0);
           gl.clear(gl.COLOR_BUFFER_BIT);
         }
         gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
@@ -710,19 +695,19 @@ export default function SplashCursor({
     const displayMaterial = new Material(baseVertexShader, displayShaderSource);
 
     function createFBO(w: number, h: number, internalFormat: number, format: number, type: number, param: number): FBO {
-      gl.activeTexture(gl.TEXTURE0);
-      const texture = gl.createTexture()!;
-      gl.bindTexture(gl.TEXTURE_2D, texture);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, param);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, param);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, w, h, 0, format, type, null);
-      const fbo = gl.createFramebuffer()!;
-      gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
-      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
-      gl.viewport(0, 0, w, h);
-      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl!.activeTexture(gl!.TEXTURE0);
+      const texture = gl!.createTexture()!;
+      gl!.bindTexture(gl!.TEXTURE_2D, texture);
+      gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_MIN_FILTER, param);
+      gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_MAG_FILTER, param);
+      gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_WRAP_S, gl!.CLAMP_TO_EDGE);
+      gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_WRAP_T, gl!.CLAMP_TO_EDGE);
+      gl!.texImage2D(gl!.TEXTURE_2D, 0, internalFormat, w, h, 0, format, type, null);
+      const fbo = gl!.createFramebuffer()!;
+      gl!.bindFramebuffer(gl!.FRAMEBUFFER, fbo);
+      gl!.framebufferTexture2D(gl!.FRAMEBUFFER, gl!.COLOR_ATTACHMENT0, gl!.TEXTURE_2D, texture, 0);
+      gl!.viewport(0, 0, w, h);
+      gl!.clear(gl!.COLOR_BUFFER_BIT);
 
       const texelSizeX = 1 / w;
       const texelSizeY = 1 / h;
@@ -735,8 +720,8 @@ export default function SplashCursor({
         texelSizeX,
         texelSizeY,
         attach(id: number) {
-          gl.activeTexture(gl.TEXTURE0 + id);
-          gl.bindTexture(gl.TEXTURE_2D, texture);
+          gl!.activeTexture(gl!.TEXTURE0 + id);
+          gl!.bindTexture(gl!.TEXTURE_2D, texture);
           return id;
         }
       };
@@ -778,7 +763,7 @@ export default function SplashCursor({
     ) {
       const newFBO = createFBO(w, h, internalFormat, format, type, param);
       copyProgram.bind();
-      if (copyProgram.uniforms.uTexture) gl.uniform1i(copyProgram.uniforms.uTexture, target.attach(0));
+      if (copyProgram.uniforms.uTexture) gl!.uniform1i(copyProgram.uniforms.uTexture, target.attach(0));
       blit(newFBO, false);
       return newFBO;
     }
@@ -810,8 +795,8 @@ export default function SplashCursor({
       const rgba = ext.formatRGBA;
       const rg = ext.formatRG;
       const r = ext.formatR;
-      const filtering = ext.supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
-      gl.disable(gl.BLEND);
+      const filtering = ext.supportLinearFiltering ? gl!.LINEAR : gl!.NEAREST;
+      gl!.disable(gl!.BLEND);
 
       if (!dye) {
         dye = createDoubleFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
@@ -833,9 +818,9 @@ export default function SplashCursor({
         );
       }
 
-      divergence = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
-      curl = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
-      pressure = createDoubleFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+      divergence = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl!.NEAREST);
+      curl = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl!.NEAREST);
+      pressure = createDoubleFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl!.NEAREST);
     }
 
     function updateKeywords() {
@@ -845,10 +830,10 @@ export default function SplashCursor({
     }
 
     function getResolution(resolution: number) {
-      const w = gl.drawingBufferWidth;
-      const h = gl.drawingBufferHeight;
+      const w = gl!.drawingBufferWidth;
+      const h = gl!.drawingBufferHeight;
       const aspectRatio = w / h;
-      let aspect = aspectRatio < 1 ? 1 / aspectRatio : aspectRatio;
+      const aspect = aspectRatio < 1 ? 1 / aspectRatio : aspectRatio;
       const min = Math.round(resolution);
       const max = Math.round(resolution * aspect);
       if (w > h) {
@@ -867,6 +852,7 @@ export default function SplashCursor({
 
     let lastUpdateTime = Date.now();
     let colorUpdateTimer = 0.0;
+    let animId: number;
 
     function updateFrame() {
       const dt = calcDeltaTime();
@@ -875,7 +861,7 @@ export default function SplashCursor({
       applyInputs();
       step(dt);
       render(null);
-      requestAnimationFrame(updateFrame);
+      animId = requestAnimationFrame(updateFrame);
     }
 
     function calcDeltaTime() {
@@ -917,65 +903,65 @@ export default function SplashCursor({
     }
 
     function step(dt: number) {
-      gl.disable(gl.BLEND);
+      gl!.disable(gl!.BLEND);
 
       curlProgram.bind();
       if (curlProgram.uniforms.texelSize) {
-        gl.uniform2f(curlProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl!.uniform2f(curlProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
       }
       if (curlProgram.uniforms.uVelocity) {
-        gl.uniform1i(curlProgram.uniforms.uVelocity, velocity.read.attach(0));
+        gl!.uniform1i(curlProgram.uniforms.uVelocity, velocity.read.attach(0));
       }
       blit(curl);
 
       vorticityProgram.bind();
       if (vorticityProgram.uniforms.texelSize) {
-        gl.uniform2f(vorticityProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl!.uniform2f(vorticityProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
       }
       if (vorticityProgram.uniforms.uVelocity) {
-        gl.uniform1i(vorticityProgram.uniforms.uVelocity, velocity.read.attach(0));
+        gl!.uniform1i(vorticityProgram.uniforms.uVelocity, velocity.read.attach(0));
       }
       if (vorticityProgram.uniforms.uCurl) {
-        gl.uniform1i(vorticityProgram.uniforms.uCurl, curl.attach(1));
+        gl!.uniform1i(vorticityProgram.uniforms.uCurl, curl.attach(1));
       }
       if (vorticityProgram.uniforms.curl) {
-        gl.uniform1f(vorticityProgram.uniforms.curl, config.CURL);
+        gl!.uniform1f(vorticityProgram.uniforms.curl, config.CURL);
       }
       if (vorticityProgram.uniforms.dt) {
-        gl.uniform1f(vorticityProgram.uniforms.dt, dt);
+        gl!.uniform1f(vorticityProgram.uniforms.dt, dt);
       }
       blit(velocity.write);
       velocity.swap();
 
       divergenceProgram.bind();
       if (divergenceProgram.uniforms.texelSize) {
-        gl.uniform2f(divergenceProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl!.uniform2f(divergenceProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
       }
       if (divergenceProgram.uniforms.uVelocity) {
-        gl.uniform1i(divergenceProgram.uniforms.uVelocity, velocity.read.attach(0));
+        gl!.uniform1i(divergenceProgram.uniforms.uVelocity, velocity.read.attach(0));
       }
       blit(divergence);
 
       clearProgram.bind();
       if (clearProgram.uniforms.uTexture) {
-        gl.uniform1i(clearProgram.uniforms.uTexture, pressure.read.attach(0));
+        gl!.uniform1i(clearProgram.uniforms.uTexture, pressure.read.attach(0));
       }
       if (clearProgram.uniforms.value) {
-        gl.uniform1f(clearProgram.uniforms.value, config.PRESSURE);
+        gl!.uniform1f(clearProgram.uniforms.value, config.PRESSURE);
       }
       blit(pressure.write);
       pressure.swap();
 
       pressureProgram.bind();
       if (pressureProgram.uniforms.texelSize) {
-        gl.uniform2f(pressureProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl!.uniform2f(pressureProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
       }
       if (pressureProgram.uniforms.uDivergence) {
-        gl.uniform1i(pressureProgram.uniforms.uDivergence, divergence.attach(0));
+        gl!.uniform1i(pressureProgram.uniforms.uDivergence, divergence.attach(0));
       }
       for (let i = 0; i < config.PRESSURE_ITERATIONS; i++) {
         if (pressureProgram.uniforms.uPressure) {
-          gl.uniform1i(pressureProgram.uniforms.uPressure, pressure.read.attach(1));
+          gl!.uniform1i(pressureProgram.uniforms.uPressure, pressure.read.attach(1));
         }
         blit(pressure.write);
         pressure.swap();
@@ -983,71 +969,71 @@ export default function SplashCursor({
 
       gradienSubtractProgram.bind();
       if (gradienSubtractProgram.uniforms.texelSize) {
-        gl.uniform2f(gradienSubtractProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl!.uniform2f(gradienSubtractProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
       }
       if (gradienSubtractProgram.uniforms.uPressure) {
-        gl.uniform1i(gradienSubtractProgram.uniforms.uPressure, pressure.read.attach(0));
+        gl!.uniform1i(gradienSubtractProgram.uniforms.uPressure, pressure.read.attach(0));
       }
       if (gradienSubtractProgram.uniforms.uVelocity) {
-        gl.uniform1i(gradienSubtractProgram.uniforms.uVelocity, velocity.read.attach(1));
+        gl!.uniform1i(gradienSubtractProgram.uniforms.uVelocity, velocity.read.attach(1));
       }
       blit(velocity.write);
       velocity.swap();
 
       advectionProgram.bind();
       if (advectionProgram.uniforms.texelSize) {
-        gl.uniform2f(advectionProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl!.uniform2f(advectionProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
       }
       if (!ext.supportLinearFiltering && advectionProgram.uniforms.dyeTexelSize) {
-        gl.uniform2f(advectionProgram.uniforms.dyeTexelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl!.uniform2f(advectionProgram.uniforms.dyeTexelSize, velocity.texelSizeX, velocity.texelSizeY);
       }
       const velocityId = velocity.read.attach(0);
       if (advectionProgram.uniforms.uVelocity) {
-        gl.uniform1i(advectionProgram.uniforms.uVelocity, velocityId);
+        gl!.uniform1i(advectionProgram.uniforms.uVelocity, velocityId);
       }
       if (advectionProgram.uniforms.uSource) {
-        gl.uniform1i(advectionProgram.uniforms.uSource, velocityId);
+        gl!.uniform1i(advectionProgram.uniforms.uSource, velocityId);
       }
       if (advectionProgram.uniforms.dt) {
-        gl.uniform1f(advectionProgram.uniforms.dt, dt);
+        gl!.uniform1f(advectionProgram.uniforms.dt, dt);
       }
       if (advectionProgram.uniforms.dissipation) {
-        gl.uniform1f(advectionProgram.uniforms.dissipation, config.VELOCITY_DISSIPATION);
+        gl!.uniform1f(advectionProgram.uniforms.dissipation, config.VELOCITY_DISSIPATION);
       }
       blit(velocity.write);
       velocity.swap();
 
       if (!ext.supportLinearFiltering && advectionProgram.uniforms.dyeTexelSize) {
-        gl.uniform2f(advectionProgram.uniforms.dyeTexelSize, dye.texelSizeX, dye.texelSizeY);
+        gl!.uniform2f(advectionProgram.uniforms.dyeTexelSize, dye.texelSizeX, dye.texelSizeY);
       }
       if (advectionProgram.uniforms.uVelocity) {
-        gl.uniform1i(advectionProgram.uniforms.uVelocity, velocity.read.attach(0));
+        gl!.uniform1i(advectionProgram.uniforms.uVelocity, velocity.read.attach(0));
       }
       if (advectionProgram.uniforms.uSource) {
-        gl.uniform1i(advectionProgram.uniforms.uSource, dye.read.attach(1));
+        gl!.uniform1i(advectionProgram.uniforms.uSource, dye.read.attach(1));
       }
       if (advectionProgram.uniforms.dissipation) {
-        gl.uniform1f(advectionProgram.uniforms.dissipation, config.DENSITY_DISSIPATION);
+        gl!.uniform1f(advectionProgram.uniforms.dissipation, config.DENSITY_DISSIPATION);
       }
       blit(dye.write);
       dye.swap();
     }
 
     function render(target: FBO | null) {
-      gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-      gl.enable(gl.BLEND);
+      gl!.blendFunc(gl!.ONE, gl!.ONE_MINUS_SRC_ALPHA);
+      gl!.enable(gl!.BLEND);
       drawDisplay(target);
     }
 
     function drawDisplay(target: FBO | null) {
-      const width = target ? target.width : gl.drawingBufferWidth;
-      const height = target ? target.height : gl.drawingBufferHeight;
+      const width = target ? target.width : gl!.drawingBufferWidth;
+      const height = target ? target.height : gl!.drawingBufferHeight;
       displayMaterial.bind();
       if (config.SHADING && displayMaterial.uniforms.texelSize) {
-        gl.uniform2f(displayMaterial.uniforms.texelSize, 1 / width, 1 / height);
+        gl!.uniform2f(displayMaterial.uniforms.texelSize, 1 / width, 1 / height);
       }
       if (displayMaterial.uniforms.uTexture) {
-        gl.uniform1i(displayMaterial.uniforms.uTexture, dye.read.attach(0));
+        gl!.uniform1i(displayMaterial.uniforms.uTexture, dye.read.attach(0));
       }
       blit(target, false);
     }
@@ -1071,28 +1057,28 @@ export default function SplashCursor({
     function splat(x: number, y: number, dx: number, dy: number, color: ColorRGB) {
       splatProgram.bind();
       if (splatProgram.uniforms.uTarget) {
-        gl.uniform1i(splatProgram.uniforms.uTarget, velocity.read.attach(0));
+        gl!.uniform1i(splatProgram.uniforms.uTarget, velocity.read.attach(0));
       }
       if (splatProgram.uniforms.aspectRatio) {
-        gl.uniform1f(splatProgram.uniforms.aspectRatio, canvas!.width / canvas!.height);
+        gl!.uniform1f(splatProgram.uniforms.aspectRatio, canvas!.width / canvas!.height);
       }
       if (splatProgram.uniforms.point) {
-        gl.uniform2f(splatProgram.uniforms.point, x, y);
+        gl!.uniform2f(splatProgram.uniforms.point, x, y);
       }
       if (splatProgram.uniforms.color) {
-        gl.uniform3f(splatProgram.uniforms.color, dx, dy, 0);
+        gl!.uniform3f(splatProgram.uniforms.color, dx, dy, 0);
       }
       if (splatProgram.uniforms.radius) {
-        gl.uniform1f(splatProgram.uniforms.radius, correctRadius(config.SPLAT_RADIUS / 100)!);
+        gl!.uniform1f(splatProgram.uniforms.radius, correctRadius(config.SPLAT_RADIUS / 100)!);
       }
       blit(velocity.write);
       velocity.swap();
 
       if (splatProgram.uniforms.uTarget) {
-        gl.uniform1i(splatProgram.uniforms.uTarget, dye.read.attach(0));
+        gl!.uniform1i(splatProgram.uniforms.uTarget, dye.read.attach(0));
       }
       if (splatProgram.uniforms.color) {
-        gl.uniform3f(splatProgram.uniforms.color, color.r, color.g, color.b);
+        gl!.uniform3f(splatProgram.uniforms.color, color.r, color.g, color.b);
       }
       blit(dye.write);
       dye.swap();
@@ -1215,15 +1201,15 @@ export default function SplashCursor({
       return ((value - min) % range) + min;
     }
 
-    window.addEventListener('mousedown', e => {
+    const onMouseDown = (e: MouseEvent) => {
       const pointer = pointers[0];
       const posX = scaleByPixelRatio(e.clientX);
       const posY = scaleByPixelRatio(e.clientY);
       updatePointerDownData(pointer, -1, posX, posY);
       clickSplat(pointer);
-    });
+    };
 
-    function handleFirstMouseMove(e: MouseEvent) {
+    const handleFirstMouseMove = (e: MouseEvent) => {
       const pointer = pointers[0];
       const posX = scaleByPixelRatio(e.clientX);
       const posY = scaleByPixelRatio(e.clientY);
@@ -1231,18 +1217,17 @@ export default function SplashCursor({
       updateFrame();
       updatePointerMoveData(pointer, posX, posY, color);
       document.body.removeEventListener('mousemove', handleFirstMouseMove);
-    }
-    document.body.addEventListener('mousemove', handleFirstMouseMove);
+    };
 
-    window.addEventListener('mousemove', e => {
+    const onMouseMove = (e: MouseEvent) => {
       const pointer = pointers[0];
       const posX = scaleByPixelRatio(e.clientX);
       const posY = scaleByPixelRatio(e.clientY);
       const color = pointer.color;
       updatePointerMoveData(pointer, posX, posY, color);
-    });
+    };
 
-    function handleFirstTouchStart(e: TouchEvent) {
+    const handleFirstTouchStart = (e: TouchEvent) => {
       const touches = e.targetTouches;
       const pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
@@ -1252,44 +1237,54 @@ export default function SplashCursor({
         updatePointerDownData(pointer, touches[i].identifier, posX, posY);
       }
       document.body.removeEventListener('touchstart', handleFirstTouchStart);
-    }
-    document.body.addEventListener('touchstart', handleFirstTouchStart);
+    };
 
-    window.addEventListener(
-      'touchstart',
-      e => {
-        const touches = e.targetTouches;
-        const pointer = pointers[0];
-        for (let i = 0; i < touches.length; i++) {
-          const posX = scaleByPixelRatio(touches[i].clientX);
-          const posY = scaleByPixelRatio(touches[i].clientY);
-          updatePointerDownData(pointer, touches[i].identifier, posX, posY);
-        }
-      },
-      false
-    );
+    const onTouchStart = (e: TouchEvent) => {
+      const touches = e.targetTouches;
+      const pointer = pointers[0];
+      for (let i = 0; i < touches.length; i++) {
+        const posX = scaleByPixelRatio(touches[i].clientX);
+        const posY = scaleByPixelRatio(touches[i].clientY);
+        updatePointerDownData(pointer, touches[i].identifier, posX, posY);
+      }
+    };
 
-    window.addEventListener(
-      'touchmove',
-      e => {
-        const touches = e.targetTouches;
-        const pointer = pointers[0];
-        for (let i = 0; i < touches.length; i++) {
-          const posX = scaleByPixelRatio(touches[i].clientX);
-          const posY = scaleByPixelRatio(touches[i].clientY);
-          updatePointerMoveData(pointer, posX, posY, pointer.color);
-        }
-      },
-      false
-    );
+    const onTouchMove = (e: TouchEvent) => {
+      const touches = e.targetTouches;
+      const pointer = pointers[0];
+      for (let i = 0; i < touches.length; i++) {
+        const posX = scaleByPixelRatio(touches[i].clientX);
+        const posY = scaleByPixelRatio(touches[i].clientY);
+        updatePointerMoveData(pointer, posX, posY, pointer.color);
+      }
+    };
 
-    window.addEventListener('touchend', e => {
+    const onTouchEnd = (e: TouchEvent) => {
       const touches = e.changedTouches;
       const pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
         updatePointerUpData(pointer);
       }
-    });
+    };
+
+    window.addEventListener('mousedown', onMouseDown);
+    document.body.addEventListener('mousemove', handleFirstMouseMove);
+    window.addEventListener('mousemove', onMouseMove);
+    document.body.addEventListener('touchstart', handleFirstTouchStart);
+    window.addEventListener('touchstart', onTouchStart, false);
+    window.addEventListener('touchmove', onTouchMove, false);
+    window.addEventListener('touchend', onTouchEnd);
+
+    return () => {
+      if (animId) cancelAnimationFrame(animId);
+      window.removeEventListener('mousedown', onMouseDown);
+      document.body.removeEventListener('mousemove', handleFirstMouseMove);
+      window.removeEventListener('mousemove', onMouseMove);
+      document.body.removeEventListener('touchstart', handleFirstTouchStart);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
+    };
   }, [
     SIM_RESOLUTION,
     DYE_RESOLUTION,
