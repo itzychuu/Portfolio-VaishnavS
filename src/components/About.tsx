@@ -1,6 +1,7 @@
 import { Download, Target, Eye, Award } from 'lucide-react';
 import { useCounter } from '@/hooks/useScrollReveal';
 import TiltedCard from './TiltedCard/TiltedCard.tsx';
+import BorderGlow from './BorderGlow/BorderGlow';
 
 function Counter({ value, label }: { value: number; label: string }) {
   const ref = useCounter(value);
@@ -80,20 +81,45 @@ export default function About() {
 
             {/* Mission & Vision */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-              <div className="glass card-tilt rounded-2xl p-6">
-                <Target size={24} style={{ color: 'var(--accent)' }} className="mb-3" />
-                <h3 className="text-lg font-semibold text-white mb-2" style={{ fontFamily: 'var(--font-alt)' }}>Mission</h3>
-                <p className="text-sm" style={{ fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                  To continuously learn, innovate, and engineer scalable digital solutions that combine exceptional design, robust technology, and meaningful user experiences while contributing to the growth of individuals, communities, and the tech ecosystem.
-                </p>
-              </div>
-              <div className="glass card-tilt rounded-2xl p-6">
-                <Eye size={24} style={{ color: 'var(--accent)' }} className="mb-3" />
-                <h3 className="text-lg font-semibold text-white mb-2" style={{ fontFamily: 'var(--font-alt)' }}>Vision</h3>
-                <p className="text-sm" style={{ fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                  To shape the future through technology by building secure, innovative, and human-centered digital experiences that make a lasting impact.
-                </p>
-              </div>
+              <BorderGlow
+                edgeSensitivity={30}
+                glowColor="354 83 40"
+                backgroundColor="rgba(18, 15, 23, 0.65)"
+                borderRadius={16}
+                glowRadius={40}
+                glowIntensity={1}
+                coneSpread={25}
+                animated={false}
+                colors={['#A91C26', '#188F87', '#A91C26']}
+              >
+                <div className="p-6 h-full">
+                  <Target size={24} style={{ color: 'var(--accent)' }} className="mb-3" />
+                  <h3 className="text-lg font-semibold text-white mb-2" style={{ fontFamily: 'var(--font-alt)' }}>Mission</h3>
+                  <p className="text-sm" style={{ fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                    To continuously learn, innovate, and engineer scalable digital solutions that combine exceptional design, robust technology, and meaningful user experiences while contributing to the growth of individuals, communities, and the tech ecosystem.
+                  </p>
+                </div>
+              </BorderGlow>
+
+              <BorderGlow
+                edgeSensitivity={30}
+                glowColor="354 83 40"
+                backgroundColor="rgba(18, 15, 23, 0.65)"
+                borderRadius={16}
+                glowRadius={40}
+                glowIntensity={1}
+                coneSpread={25}
+                animated={false}
+                colors={['#A91C26', '#188F87', '#A91C26']}
+              >
+                <div className="p-6 h-full">
+                  <Eye size={24} style={{ color: 'var(--accent)' }} className="mb-3" />
+                  <h3 className="text-lg font-semibold text-white mb-2" style={{ fontFamily: 'var(--font-alt)' }}>Vision</h3>
+                  <p className="text-sm" style={{ fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                    To shape the future through technology by building secure, innovative, and human-centered digital experiences that make a lasting impact.
+                  </p>
+                </div>
+              </BorderGlow>
             </div>
 
             {/* Counters */}

@@ -1,4 +1,5 @@
 import { Code, Server, Palette, Database, Cloud, GitBranch, BrainCircuit, ShieldCheck, Wrench, Globe } from 'lucide-react';
+import BorderGlow from './BorderGlow/BorderGlow';
 
 const categories = [
   {
@@ -100,46 +101,56 @@ export default function Skills() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((cat, i) => (
-            <div
+            <BorderGlow
               key={cat.name}
-              className="glass card-tilt rounded-2xl p-6 reveal"
-              style={{ transitionDelay: `${i * 0.05}s` }}
+              className="reveal"
+              edgeSensitivity={30}
+              glowColor="354 83 40"
+              backgroundColor="rgba(18, 15, 23, 0.65)"
+              borderRadius={16}
+              glowRadius={40}
+              glowIntensity={1}
+              coneSpread={25}
+              animated={false}
+              colors={['#A91C26', '#188F87', '#A91C26']}
             >
-              {/* Header */}
-              <div className="flex items-center gap-3 mb-6">
-                <div
-                  className="flex items-center justify-center w-10 h-10 rounded-xl"
-                  style={{ background: 'rgba(196,0,33,0.12)', border: '1px solid rgba(196,0,33,0.2)' }}
-                >
-                  <cat.icon size={18} style={{ color: 'var(--accent)' }} />
-                </div>
-                <h3 className="text-lg font-semibold text-white" style={{ fontFamily: 'var(--font-alt)', letterSpacing: '0.02em' }}>
-                  {cat.name}
-                </h3>
-              </div>
-
-              {/* Skills */}
-              <div className="space-y-4">
-                {cat.skills.map((s) => (
-                  <div key={s.name}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-sm" style={{ fontFamily: 'var(--font-alt)', color: 'var(--text-secondary)' }}>
-                        {s.name}
-                      </span>
-                      <span
-                        className="text-xs font-mono"
-                        style={{ fontFamily: 'var(--font-alt)', color: 'var(--accent)' }}
-                      >
-                        {s.level}%
-                      </span>
-                    </div>
-                    <div className="progress-bar">
-                      <div className="progress-fill" style={{ width: `${s.level}%` }} />
-                    </div>
+              <div className="p-6 h-full" style={{ transitionDelay: `${i * 0.05}s` }}>
+                {/* Header */}
+                <div className="flex items-center gap-3 mb-6">
+                  <div
+                    className="flex items-center justify-center w-10 h-10 rounded-xl"
+                    style={{ background: 'rgba(196,0,33,0.12)', border: '1px solid rgba(196,0,33,0.2)' }}
+                  >
+                    <cat.icon size={18} style={{ color: 'var(--accent)' }} />
                   </div>
-                ))}
+                  <h3 className="text-lg font-semibold text-white" style={{ fontFamily: 'var(--font-alt)', letterSpacing: '0.02em' }}>
+                    {cat.name}
+                  </h3>
+                </div>
+
+                {/* Skills */}
+                <div className="space-y-4">
+                  {cat.skills.map((s) => (
+                    <div key={s.name}>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-sm" style={{ fontFamily: 'var(--font-alt)', color: 'var(--text-secondary)' }}>
+                          {s.name}
+                        </span>
+                        <span
+                          className="text-xs font-mono"
+                          style={{ fontFamily: 'var(--font-alt)', color: 'var(--accent)' }}
+                        >
+                          {s.level}%
+                        </span>
+                      </div>
+                      <div className="progress-bar">
+                        <div className="progress-fill" style={{ width: `${s.level}%` }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </BorderGlow>
           ))}
         </div>
       </div>

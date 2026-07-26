@@ -1,4 +1,5 @@
 import { Award, ShieldCheck, CheckCircle2, ExternalLink } from 'lucide-react';
+import BorderGlow from './BorderGlow/BorderGlow';
 
 const certificates = [
   {
@@ -53,79 +54,86 @@ export default function Certificates() {
           {certificates.map((cert, i) => {
             const Icon = cert.icon;
             return (
-              <div
+              <BorderGlow
                 key={cert.title + cert.issuer}
-                className="group relative glass card-tilt rounded-2xl p-6 reveal-scale flex flex-col justify-between overflow-hidden"
-                style={{ transitionDelay: `${i * 0.1}s` }}
+                className="reveal-scale"
+                edgeSensitivity={30}
+                glowColor="354 83 40"
+                backgroundColor="rgba(18, 15, 23, 0.65)"
+                borderRadius={16}
+                glowRadius={40}
+                glowIntensity={1}
+                coneSpread={25}
+                animated={false}
+                colors={['#A91C26', '#188F87', '#A91C26']}
               >
-                {/* Background radial glow on hover */}
                 <div
-                  className="absolute -right-12 -top-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none blur-2xl"
-                  style={{ background: 'var(--accent)' }}
-                />
-
-                <div>
-                  {/* Top bar with icon & category badge */}
-                  <div className="flex items-center justify-between mb-6">
-                    <div
-                      className="flex items-center justify-center w-12 h-12 rounded-xl transition-transform duration-300 group-hover:scale-110"
-                      style={{ background: 'rgba(169, 28, 38, 0.12)', border: '1px solid rgba(169, 28, 38, 0.25)' }}
-                    >
-                      <Icon size={22} style={{ color: 'var(--accent)' }} />
+                  className="p-6 h-full flex flex-col justify-between"
+                  style={{ transitionDelay: `${i * 0.1}s` }}
+                >
+                  <div>
+                    {/* Top bar with icon & category badge */}
+                    <div className="flex items-center justify-between mb-6">
+                      <div
+                        className="flex items-center justify-center w-12 h-12 rounded-xl transition-transform duration-300 group-hover:scale-110"
+                        style={{ background: 'rgba(169, 28, 38, 0.12)', border: '1px solid rgba(169, 28, 38, 0.25)' }}
+                      >
+                        <Icon size={22} style={{ color: 'var(--accent)' }} />
+                      </div>
+                      <span
+                        className="text-xs font-semibold px-3 py-1 rounded-full glass"
+                        style={{ fontFamily: 'var(--font-alt)', color: 'var(--accent)', letterSpacing: '0.05em' }}
+                      >
+                        {cert.category}
+                      </span>
                     </div>
-                    <span
-                      className="text-xs font-semibold px-3 py-1 rounded-full glass"
-                      style={{ fontFamily: 'var(--font-alt)', color: 'var(--accent)', letterSpacing: '0.05em' }}
+
+                    {/* Title & Issuer */}
+                    <h3
+                      className="text-xl font-bold text-white mb-2 transition-colors duration-300"
+                      style={{ fontFamily: 'var(--font-alt)' }}
                     >
-                      {cert.category}
-                    </span>
+                      {cert.title}
+                    </h3>
+                    <p
+                      className="text-sm font-medium mb-6"
+                      style={{ fontFamily: 'var(--font-body)', color: 'var(--text-secondary)' }}
+                    >
+                      {cert.issuer}
+                    </p>
                   </div>
 
-                  {/* Title & Issuer */}
-                  <h3
-                    className="text-xl font-bold text-white mb-2 group-hover:text-[var(--accent)] transition-colors duration-300"
-                    style={{ fontFamily: 'var(--font-alt)' }}
-                  >
-                    {cert.title}
-                  </h3>
-                  <p
-                    className="text-sm font-medium mb-6"
-                    style={{ fontFamily: 'var(--font-body)', color: 'var(--text-secondary)' }}
-                  >
-                    {cert.issuer}
-                  </p>
-                </div>
+                  {/* Footer status & button */}
+                  <div className="flex items-center justify-between pt-4 border-t border-white/10 mt-auto">
+                    <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-medium" style={{ fontFamily: 'var(--font-alt)' }}>
+                      <CheckCircle2 size={14} />
+                      <span>{cert.date}</span>
+                    </div>
 
-                {/* Footer status & button */}
-                <div className="flex items-center justify-between pt-4 border-t border-white/10 mt-auto">
-                  <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-medium" style={{ fontFamily: 'var(--font-alt)' }}>
-                    <CheckCircle2 size={14} />
-                    <span>{cert.date}</span>
+                    <a
+                      href={cert.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold text-white transition-all duration-300 hover:scale-105"
+                      style={{
+                        fontFamily: 'var(--font-alt)',
+                        background: 'rgba(169, 28, 38, 0.15)',
+                        border: '1px solid rgba(169, 28, 38, 0.35)',
+                      }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = 'var(--accent)';
+                        (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)';
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = 'rgba(169, 28, 38, 0.15)';
+                        (e.currentTarget as HTMLElement).style.borderColor = 'rgba(169, 28, 38, 0.35)';
+                      }}
+                    >
+                      View Certificate <ExternalLink size={12} />
+                    </a>
                   </div>
-
-                  <a
-                    href={cert.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold text-white transition-all duration-300 hover:scale-105"
-                    style={{
-                      fontFamily: 'var(--font-alt)',
-                      background: 'rgba(169, 28, 38, 0.15)',
-                      border: '1px solid rgba(169, 28, 38, 0.35)',
-                    }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.background = 'var(--accent)';
-                      (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)';
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.background = 'rgba(169, 28, 38, 0.15)';
-                      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(169, 28, 38, 0.35)';
-                    }}
-                  >
-                    View Certificate <ExternalLink size={12} />
-                  </a>
                 </div>
-              </div>
+              </BorderGlow>
             );
           })}
         </div>
