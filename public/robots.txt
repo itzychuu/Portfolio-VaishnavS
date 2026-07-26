@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vaishnavs.dev/sitemap.xml
+Sitemap: https://vaishnav-s.vercel.app/sitemap.xml
