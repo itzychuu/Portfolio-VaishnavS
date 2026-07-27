@@ -41,7 +41,7 @@ export default function Experience() {
               {experiences.map((exp, i) => (
                 <div key={i} className="relative mb-8 reveal-left" style={{ transitionDelay: `${i * 0.1}s` }}>
                   {/* Dot */}
-                  <div className="absolute -left-7 top-1.5 w-4 h-4 rounded-full" style={{ background: 'var(--accent)', boxShadow: '0 0 15px rgba(196,0,33,0.5)', zIndex: 10 }} />
+                  <div className="absolute -left-7 top-1.5 w-4 h-4 rounded-full" style={{ background: 'var(--accent)', boxShadow: '0 0 15px rgba(169,28,38,0.5)', zIndex: 10 }} />
                   <BorderGlow
                     edgeSensitivity={30}
                     glowColor="354 83 40"

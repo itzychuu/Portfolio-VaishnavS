@@ -69,7 +69,7 @@ export default function Contact() {
                   className="flex items-center gap-4 glass card-tilt rounded-2xl p-4 transition-all"
                   style={{ cursor: 'none' }}
                 >
-                  <div className="flex items-center justify-center w-12 h-12 rounded-xl" style={{ background: 'rgba(196,0,33,0.12)' }}>
+                  <div className="flex items-center justify-center w-12 h-12 rounded-xl" style={{ background: 'rgba(169,28,38,0.12)' }}>
                     <c.icon size={20} style={{ color: 'var(--accent)' }} />
                   </div>
                   <div>
@@ -91,7 +91,7 @@ export default function Contact() {
                   aria-label={s.label}
                   className="glass rounded-full p-3 transition-all duration-300 hover:scale-110"
                   style={{ cursor: 'none' }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(196,0,33,0.15)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(196,0,33,0.4)'; }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(169,28,38,0.15)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(169,28,38,0.4)'; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = ''; (e.currentTarget as HTMLElement).style.borderColor = ''; }}
                 >
                   <s.icon size={18} style={{ color: 'var(--text-secondary)' }} />
@@ -149,7 +149,7 @@ export default function Contact() {
                 type="submit"
                 className="btn-magnetic w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-white text-sm font-semibold transition-all duration-300"
                 style={{ background: sent ? '#22c55e' : 'var(--accent)', fontFamily: 'var(--font-alt)', letterSpacing: '0.05em' }}
-                onMouseEnter={(e) => { if (!sent) (e.currentTarget as HTMLElement).style.boxShadow = '0 0 30px rgba(196,0,33,0.5)'; }}
+                onMouseEnter={(e) => { if (!sent) (e.currentTarget as HTMLElement).style.boxShadow = '0 0 30px rgba(169,28,38,0.5)'; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = 'none'; }}
               >
                 {sent ? (

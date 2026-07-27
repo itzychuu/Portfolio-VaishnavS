@@ -119,7 +119,7 @@ export default function Skills() {
                 <div className="flex items-center gap-3 mb-6">
                   <div
                     className="flex items-center justify-center w-10 h-10 rounded-xl"
-                    style={{ background: 'rgba(196,0,33,0.12)', border: '1px solid rgba(196,0,33,0.2)' }}
+                    style={{ background: 'rgba(169,28,38,0.12)', border: '1px solid rgba(169,28,38,0.2)' }}
                   >
                     <cat.icon size={18} style={{ color: 'var(--accent)' }} />
                   </div>

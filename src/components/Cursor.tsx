@@ -63,16 +63,16 @@ export default function Cursor({
   SIM_RESOLUTION = 128,
   DYE_RESOLUTION = 1440,
   CAPTURE_RESOLUTION = 512,
-  DENSITY_DISSIPATION = 3.5,
-  VELOCITY_DISSIPATION = 2,
+  DENSITY_DISSIPATION = 6.5,
+  VELOCITY_DISSIPATION = 3.0,
   PRESSURE = 0.1,
   PRESSURE_ITERATIONS = 20,
   CURL = 3,
-  SPLAT_RADIUS = 0.2,
+  SPLAT_RADIUS = 0.4,
   SPLAT_FORCE = 6000,
   SHADING = true,
-  COLOR_UPDATE_SPEED = 10,
-  BACK_COLOR = { r: 0.5, g: 0, b: 0 },
+  COLOR_UPDATE_SPEED = 4,
+  BACK_COLOR = { r: 0, g: 0, b: 0 },
   TRANSPARENT = true,
   RAINBOW_MODE = true,
   COLOR = '#a91c26'
@@ -1046,11 +1046,11 @@ export default function Cursor({
 
     function clickSplat(pointer: Pointer) {
       const color = generateColor();
-      color.r *= 10;
-      color.g *= 10;
-      color.b *= 10;
-      const dx = 10 * (Math.random() - 0.5);
-      const dy = 30 * (Math.random() - 0.5);
+      color.r *= 1.5;
+      color.g *= 1.5;
+      color.b *= 1.5;
+      const dx = 5 * (Math.random() - 0.5);
+      const dy = 15 * (Math.random() - 0.5);
       splat(pointer.texcoordX, pointer.texcoordY, dx, dy, color);
     }
 
@@ -1136,18 +1136,21 @@ export default function Cursor({
       const r = parseInt(val.slice(0, 2), 16) / 255;
       const g = parseInt(val.slice(2, 4), 16) / 255;
       const b = parseInt(val.slice(4, 6), 16) / 255;
-      return { r: r * 0.15, g: g * 0.15, b: b * 0.15 };
+      return { r: r * 0.05, g: g * 0.05, b: b * 0.05 };
     }
 
     function generateColor(): ColorRGB {
       if (!config.RAINBOW_MODE) {
         return hexToRGB(config.COLOR!);
       }
-      const c = HSVtoRGB(Math.random(), 1.0, 1.0);
-      c.r *= 0.15;
-      c.g *= 0.15;
-      c.b *= 0.15;
-      return c;
+      // Blend smoothly between Hero Red (#A91C26) and Hero Teal (#188F87)
+      const t = Math.sin(colorUpdateTimer * 1.5) * 0.5 + 0.5;
+      const r = (169 * (1 - t) + 24 * t) / 255;
+      const g = (28 * (1 - t) + 143 * t) / 255;
+      const b = (38 * (1 - t) + 135 * t) / 255;
+
+      const intensity = 0.05;
+      return { r: r * intensity, g: g * intensity, b: b * intensity };
     }
 
     function HSVtoRGB(h: number, s: number, v: number): ColorRGB {

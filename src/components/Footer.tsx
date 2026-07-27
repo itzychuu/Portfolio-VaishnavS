@@ -31,7 +31,7 @@ export default function Footer() {
             aria-label={s.label}
             className="glass rounded-full p-4 transition-all duration-300 hover:scale-110"
             style={{ cursor: 'none' }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(196,0,33,0.15)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(196,0,33,0.4)'; }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(169,28,38,0.15)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(169,28,38,0.4)'; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = ''; (e.currentTarget as HTMLElement).style.borderColor = ''; }}
           >
             <s.icon size={20} style={{ color: 'var(--text-secondary)' }} />

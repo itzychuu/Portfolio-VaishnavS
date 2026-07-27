@@ -7,24 +7,40 @@ const certificates = [
     issuer: 'Luminar Technolab',
     category: 'Mobile Development',
     icon: Award,
-    date: 'Certified',
-    url: '#', // Replace with your certificate link / PDF URL
+    date: '16/12/2024',
+    url: 'https://drive.google.com/file/d/1vqD-Gu-H4md7-8qElF7R1FjHI9mSNwA1/view?usp=sharing', // Replace with your certificate link / PDF URL
   },
   {
     title: 'Cyber Security and Ethical Hacking',
     issuer: 'Pacelabs Trivandrum',
     category: 'Cyber Security',
     icon: ShieldCheck,
-    date: 'Certified',
-    url: '#', // Replace with your certificate link / PDF URL
+    date: '06/06/2025',
+    url: 'https://drive.google.com/file/d/1k75N0bEleFiVMd35wtjdjhxRI_bwQw6v/view?usp=sharing', // Replace with your certificate link / PDF URL
   },
   {
     title: 'Cyber Security and Ethical Hacking',
     issuer: 'Techmaghi',
     category: 'Ethical Hacking',
     icon: ShieldCheck,
-    date: 'Certified',
-    url: '#', // Replace with your certificate link / PDF URL
+    date: '08/06/2026',
+    url: 'https://drive.google.com/file/d/1tGh7Y77phLfQ3yxaNHhtC001K2mbtzMs/view?usp=sharing', // Replace with your certificate link / PDF URL
+  },
+  {
+    title: 'IEEE EMBS Pune Chapter',
+    issuer: 'IEEE EMBS Pune Chapter',
+    category: 'Machine Learning',
+    icon: ShieldCheck,
+    date: '30/06/2026',
+    url: 'https://drive.google.com/file/d/1sWMhknkmy3kNVaML4IN9AULtNQoMpo9V/view?usp=sharing', // Replace with your certificate link / PDF URL
+  },
+  {
+    title: 'NVIDIA Deep Learning',
+    issuer: 'NVIDIA',
+    category: 'Deep Learninng',
+    icon: ShieldCheck,
+    date: '17/01/2026',
+    url: 'https://drive.google.com/file/d/19nAOzYKqbQiAlDdWo1qIBUJwnM8wmfxW/view?usp=sharing', // Replace with your certificate link / PDF URL
   },
 ];
 
