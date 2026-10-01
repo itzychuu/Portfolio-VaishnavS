@@ -197,7 +197,7 @@ export default function Hero() {
               </a>
 
               <a
-                href="/Documents/VaishnavResume.pdf"
+                href="/Documents/VaishnavResumeLatest.pdf"
                 download
                 className="inline-flex items-center justify-center rounded-full transition-transform duration-200 hover:scale-105"
                 style={{
