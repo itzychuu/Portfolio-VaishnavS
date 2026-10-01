@@ -18,7 +18,7 @@ function Counter({ value, label }: { value: number; label: string }) {
 
 export default function About() {
   return (
-    <section id="about" className="relative py-24 sm:py-32" style={{ zIndex: 2 }}>
+    <section id="about" className="relative py-20 sm:py-32 scroll-mt-20" style={{ zIndex: 2 }}>
       <div className="max-w-7xl mx-auto px-6">
         {/* Label */}
         <div className="flex items-center gap-3 mb-4 reveal">

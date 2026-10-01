@@ -15,7 +15,7 @@ const education = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="relative py-24 sm:py-32" style={{ zIndex: 2 }}>
+    <section id="experience" className="relative py-20 sm:py-32 scroll-mt-20" style={{ zIndex: 2 }}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center gap-3 mb-4 reveal">
           <span className="w-8 h-px" style={{ background: 'var(--accent)' }} />

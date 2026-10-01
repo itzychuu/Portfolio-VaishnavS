@@ -1,17 +1,18 @@
-import { Download, Linkedin, Instagram, Github, Twitter } from 'lucide-react';
+import { Linkedin, Instagram, Github, Twitter } from 'lucide-react';
 import RotatingText from './RotatingText/RotatingText';
 
-// Design reference: 1280 × 833 Figma frame.
+// Design reference frame
 const FRAME_W = 1280;
 const FRAME_H = 833;
 
 const TEAL = '#188F87';
 const RED = '#A91C26';
 
+const DISPLAY_FONT = "'Bebas Neue', sans-serif";
 const INTER = "'Inter', sans-serif";
+const MANROPE = "'Manrope', sans-serif";
 
 export default function Hero() {
-  // Shifted up so the horizontal center of 'h' and 'n' aligns directly at eye-level
   const nameLayerStyle = {
     top: `${(150 / FRAME_H) * 100}%`,
     transform: 'translate3d(-50%, 0, 0)',
@@ -22,7 +23,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen overflow-hidden pt-20 bg-black flex flex-col justify-between"
+      className="relative min-h-[100dvh] overflow-hidden pt-20 pb-8 bg-black flex flex-col justify-between scroll-mt-20"
     >
       {/* Background Glow - Left (Red) */}
       <div
@@ -57,7 +58,7 @@ export default function Hero() {
         viewBox="0 0 984 345"
         preserveAspectRatio="xMidYMid meet"
         aria-hidden="true"
-        className="absolute left-1/2 pointer-events-none select-none page-load-name"
+        className="absolute left-1/2 pointer-events-none select-none page-load-name w-[92%] md:w-[77%]"
         style={{ ...nameLayerStyle, zIndex: 1 }}
       >
         <defs>
@@ -72,34 +73,30 @@ export default function Hero() {
           y="52%"
           textAnchor="middle"
           dominantBaseline="middle"
-          style={{ fontFamily: INTER, fontSize: 220 }}
+          style={{ fontFamily: DISPLAY_FONT, fontSize: 210, letterSpacing: '2px' }}
           fill="url(#nameGradientFill)"
         >
           Vaishnav S
         </text>
       </svg>
 
-      {/* Portrait cutout - Fully Static */}
+      {/* Portrait cutout */}
       <img
         src="/images/hero/vaishnav-s-bg-rm.png"
         alt="Vaishnav Shalikumar portrait"
-        className="absolute left-1/2 bottom-0 pointer-events-none select-none page-load-portrait"
+        className="absolute left-1/2 bottom-0 pointer-events-none select-none page-load-portrait h-[60vh] sm:h-[75vh] md:h-[88%] w-auto max-w-none object-contain"
         style={{
-          height: '88%',
-          width: 'auto',
-          maxWidth: 'none',
-          objectFit: 'contain',
           zIndex: 2,
           transform: 'translateX(-50%)',
         }}
       />
 
-      {/* Vaishnav-S-1 — Layer 2 (Front): Gradient stroke only, sits ON TOP of the photo */}
+      {/* Vaishnav-S — Layer 2 (Front): Gradient stroke only, sits ON TOP of the photo */}
       <svg
         viewBox="0 0 984 345"
         preserveAspectRatio="xMidYMid meet"
         aria-hidden="true"
-        className="absolute left-1/2 pointer-events-none select-none page-load-name-front"
+        className="absolute left-1/2 pointer-events-none select-none page-load-name-front w-[92%] md:w-[77%]"
         style={{ ...nameLayerStyle, zIndex: 3 }}
       >
         <defs>
@@ -114,7 +111,7 @@ export default function Hero() {
           y="52%"
           textAnchor="middle"
           dominantBaseline="middle"
-          style={{ fontFamily: INTER, fontSize: 220 }}
+          style={{ fontFamily: DISPLAY_FONT, fontSize: 210, letterSpacing: '2px' }}
           fill="none"
           stroke="url(#nameGradientStroke)"
           strokeWidth={1}
@@ -123,28 +120,37 @@ export default function Hero() {
         </text>
       </svg>
 
-      {/* Flexible spacer creating clear vertical separation */}
-      <div className="flex-1 min-h-[40px]" />
+      {/* Spacer */}
+      <div className="flex-1 min-h-[60px] md:min-h-[120px]" />
 
-      {/* Foreground Content Layer - Shifted Upwards */}
-      <div className="relative w-full z-10 pb-16 md:pb-20 -translate-y-6 md:-translate-y-10">
-        <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+      {/* Bottom overlay gradient on mobile so text is always clear */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-96 pointer-events-none lg:hidden"
+        style={{
+          background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 60%, transparent 100%)',
+          zIndex: 4,
+        }}
+      />
+
+      {/* Foreground Content Layer */}
+      <div className="relative w-full z-10 pb-6 md:pb-12">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-end">
           
           {/* Left Side: Title + Description */}
-          <div className="lg:col-span-6 page-load-content-left">
+          <div className="lg:col-span-7 page-load-content-left text-center lg:text-left">
             <h1
-              className="text-white font-bold mb-1 tracking-tight"
-              style={{ fontFamily: INTER, fontSize: 34 }}
+              className="text-white font-bold mb-1 tracking-tight text-3xl sm:text-4xl lg:text-5xl"
+              style={{ fontFamily: MANROPE }}
             >
               Vaishnav Shalikumar
             </h1>
             <div
-              className="text-white mb-3 leading-snug flex flex-wrap items-center gap-x-2"
-              style={{ fontFamily: INTER, fontSize: 32 }}
+              className="text-white mb-3 leading-snug flex flex-wrap items-center justify-center lg:justify-start gap-x-2 text-xl sm:text-2xl lg:text-3xl font-bold"
+              style={{ fontFamily: MANROPE }}
             >
               <RotatingText
                 texts={['Full Stack Developer', 'UI/UX Designer', 'Cybersecurity Enthusiast']}
-                mainClassName="text-[#188F87] overflow-hidden justify-start inline-flex"
+                mainClassName="text-[#188F87] overflow-hidden justify-center lg:justify-start inline-flex"
                 staggerFrom="last"
                 initial={{ y: '100%' }}
                 animate={{ y: 0 }}
@@ -159,12 +165,10 @@ export default function Hero() {
               />
             </div>
             <p
-              className="max-w-md leading-relaxed"
+              className="max-w-xl mx-auto lg:mx-0 leading-relaxed text-xs sm:text-sm md:text-base text-gray-300"
               style={{
                 fontFamily: INTER,
-                fontSize: 15,
                 fontWeight: 400,
-                color: 'rgba(255,255,255,0.85)',
               }}
             >
               I craft premium digital experiences where cutting-edge engineering
@@ -175,21 +179,21 @@ export default function Hero() {
           </div>
 
           {/* Right Side: Buttons + Social Links */}
-          <div className="lg:col-span-6 flex flex-col items-start lg:items-end gap-5 page-load-content-right">
+          <div className="lg:col-span-5 flex flex-col items-center lg:items-end gap-4 page-load-content-right w-full">
             {/* CTA Buttons */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center rounded-full transition-transform duration-200 hover:scale-105"
+                className="inline-flex items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 active:scale-95"
                 style={{
-                  width: 160,
-                  height: 48,
+                  width: 140,
+                  height: 44,
                   background: 'transparent',
                   border: `1.5px solid ${RED}`,
                   color: RED,
                   fontFamily: INTER,
                   fontWeight: 700,
-                  fontSize: 18,
+                  fontSize: 16,
                 }}
               >
                 Contact me
@@ -198,24 +202,24 @@ export default function Hero() {
               <a
                 href="/Documents/VaishnavResumeLatest.pdf"
                 download
-                className="inline-flex items-center justify-center rounded-full transition-transform duration-200 hover:scale-105"
+                className="inline-flex items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 active:scale-95 shadow-lg shadow-red-900/30"
                 style={{
-                  width: 160,
-                  height: 48,
+                  width: 140,
+                  height: 44,
                   background: RED,
                   color: '#FFFFFF',
                   fontFamily: INTER,
                   fontWeight: 700,
-                  fontSize: 18,
+                  fontSize: 16,
                 }}
               >
                 Resume
               </a>
             </div>
 
-            {/* Social Icons Centered relative to the buttons container */}
-            <div className="w-[336px] flex justify-center">
-              <div className="flex items-center gap-5">
+            {/* Social Icons */}
+            <div className="w-full flex justify-center lg:justify-end">
+              <div className="flex items-center gap-4">
                 {[
                   { Icon: Linkedin, href: 'https://www.linkedin.com/in/1920-vaishnav-s/', label: 'Connect with Vaishnav Shalikumar on LinkedIn' },
                   { Icon: Instagram, href: 'https://www.instagram.com/_y._chuu._', label: 'Follow Vaishnav Shalikumar on Instagram' },
@@ -228,9 +232,9 @@ export default function Hero() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="rounded-full p-2.5 flex items-center justify-center transition-transform duration-200 hover:scale-110"
+                    className="rounded-full p-2.5 flex items-center justify-center transition-all duration-200 hover:scale-110"
                     style={{
-                      background: 'transparent',
+                      background: 'rgba(0,0,0,0.4)',
                       border: `1.5px solid ${RED}`,
                     }}
                   >

@@ -23,11 +23,19 @@ export default function Navbar() {
           if (entry.isIntersecting) setActive('#' + entry.target.id);
         });
       },
-      { threshold: 0.4 }
+      { threshold: 0.3 }
     );
     sections.forEach((s) => s && observer.observe(s));
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [open]);
 
   return (
     <>
@@ -36,36 +44,32 @@ export default function Navbar() {
         aria-label="Main navigation"
       >
         <div
-          className="flex items-center justify-between mx-auto"
-          style={{
-            maxWidth: '1400px',
-            padding: '28px 32px',
-          }}
+          className="flex items-center justify-between mx-auto px-5 py-4 sm:px-8 sm:py-5 max-w-7xl"
         >
           {/* Logo */}
           <a
             href="#home"
-            className="text-white font-bold text-lg tracking-tight"
+            className="text-white font-bold text-lg tracking-tight hover:opacity-80 transition-opacity"
             style={{ fontFamily: 'var(--font-alt, sans-serif)' }}
           >
             Vaishnav S
           </a>
 
           {/* Desktop links */}
-          <ul className="hidden lg:flex items-center gap-20">
+          <ul className="hidden lg:flex items-center gap-10 xl:gap-14">
             {links.map((l) => (
               <li key={l.href}>
                 <a
                   href={l.href}
-                  className="text-sm transition-colors duration-200"
+                  className="text-sm font-medium transition-colors duration-200"
                   style={{
                     fontFamily: 'var(--font-alt, sans-serif)',
-                    color: active === l.href ? '#ffffff' : 'rgba(255,255,255,0.55)',
+                    color: active === l.href ? '#ffffff' : 'rgba(255,255,255,0.6)',
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#ffffff')}
                   onMouseLeave={(e) =>
                     (e.currentTarget.style.color =
-                      active === l.href ? '#ffffff' : 'rgba(255,255,255,0.55)')
+                      active === l.href ? '#ffffff' : 'rgba(255,255,255,0.6)')
                   }
                 >
                   {l.label}
@@ -76,44 +80,48 @@ export default function Navbar() {
 
           {/* Mobile toggle */}
           <button
-            className="lg:hidden text-white"
+            className="lg:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
             onClick={() => setOpen(!open)}
-            style={{ background: 'none', border: 'none' }}
             aria-label="Toggle menu"
           >
-            {open ? <X size={22} /> : <Menu size={22} />}
+            {open ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile menu modal overlay */}
       {open && (
         <div
-          className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-black"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/95 backdrop-blur-xl animate-fadeIn"
         >
-          <ul className="flex flex-col items-center gap-8">
+          <button
+            onClick={() => setOpen(false)}
+            className="absolute top-5 right-5 text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            aria-label="Close menu"
+          >
+            <X size={24} />
+          </button>
+
+          <ul className="flex flex-col items-center gap-7">
             {links.map((l) => (
               <li key={l.href}>
                 <a
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="text-2xl font-medium text-white"
-                  style={{ fontFamily: 'var(--font-alt, sans-serif)' }}
+                  className="text-2xl font-semibold transition-colors duration-200"
+                  style={{
+                    fontFamily: 'var(--font-alt, sans-serif)',
+                    color: active === l.href ? 'var(--accent)' : '#ffffff',
+                  }}
                 >
                   {l.label}
                 </a>
               </li>
             ))}
           </ul>
-          <button
-            onClick={() => setOpen(false)}
-            className="absolute top-6 right-6 text-white"
-            style={{ background: 'none', border: 'none' }}
-          >
-            <X size={24} />
-          </button>
         </div>
       )}
     </>
   );
 }
+
