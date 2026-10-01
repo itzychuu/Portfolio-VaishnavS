@@ -1,10 +1,10 @@
 import { Github, Linkedin, Twitter, Instagram, Dribbble, ArrowUp } from 'lucide-react';
 
 const socials = [
-  { icon: Linkedin,   href: 'https://linkedin.com/in/1920-vaishnav-s',   label: 'LinkedIn' },
-  { icon: Github,     href: 'https://github.com/itzychuu',         label: 'GitHub' },
-  { icon: Twitter,    href: 'https://x.com/_why_choo_',        label: 'X (Twitter)' },
-  { icon: Instagram,  href: 'https://www.instagram.com/_y._chuu._',      label: 'Instagram' }
+  { icon: Linkedin,   href: 'https://www.linkedin.com/in/1920-vaishnav-s/',   label: 'Connect with Vaishnav Shalikumar on LinkedIn' },
+  { icon: Github,     href: 'https://github.com/itzychuu',         label: "View Vaishnav Shalikumar's GitHub profile" },
+  { icon: Twitter,    href: 'https://x.com/_why_choo_',        label: 'Follow Vaishnav Shalikumar on X' },
+  { icon: Instagram,  href: 'https://www.instagram.com/_y._chuu._',      label: 'Follow Vaishnav Shalikumar on Instagram' }
 ];
 
 export default function Footer() {
@@ -43,10 +43,10 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
           <p className="text-xs" style={{ fontFamily: 'var(--font-alt)', color: 'var(--text-secondary)' }}>
-            © {new Date().getFullYear()} Vaishnav S. All rights reserved.
+            © {new Date().getFullYear()} Vaishnav Shalikumar (Vaishnav S). All rights reserved.
           </p>
           <p className="text-xs" style={{ fontFamily: 'var(--font-alt)', color: 'var(--text-secondary)' }}>
-            Designed & Built with <span style={{ color: 'var(--accent)' }}>♥</span> by Vaishnav S
+            Designed &amp; Built with <span style={{ color: 'var(--accent)' }}>♥</span> by Vaishnav Shalikumar
           </p>
           <a
             href="#home"

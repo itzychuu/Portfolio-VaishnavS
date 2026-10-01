@@ -83,7 +83,7 @@ export default function Hero() {
       {/* Portrait cutout - Fully Static */}
       <img
         src="/images/hero/vaishnav-s-bg-rm.png"
-        alt="Vaishnav S portrait"
+        alt="Vaishnav Shalikumar portrait"
         className="absolute left-1/2 bottom-0 pointer-events-none select-none page-load-portrait"
         style={{
           height: '88%',
@@ -133,9 +133,15 @@ export default function Hero() {
           
           {/* Left Side: Title + Description */}
           <div className="lg:col-span-6 page-load-content-left">
-            <h2
+            <h1
+              className="text-white font-bold mb-1 tracking-tight"
+              style={{ fontFamily: LALEZAR, fontSize: 34 }}
+            >
+              Vaishnav Shalikumar
+            </h1>
+            <div
               className="text-white mb-3 leading-snug flex flex-wrap items-center gap-x-2"
-              style={{ fontFamily: LALEZAR, fontSize: 36 }}
+              style={{ fontFamily: LALEZAR, fontSize: 32 }}
             >
               <RotatingText
                 texts={['Full Stack Developer', 'UI/UX Designer', 'Cybersecurity Enthusiast']}
@@ -152,7 +158,7 @@ export default function Hero() {
                 auto
                 loop
               />
-            </h2>
+            </div>
             <p
               className="max-w-md leading-relaxed"
               style={{
@@ -212,10 +218,10 @@ export default function Hero() {
             <div className="w-[336px] flex justify-center">
               <div className="flex items-center gap-5">
                 {[
-                  { Icon: Linkedin, href: 'https://linkedin.com/in/1920-vaishnav-s', label: 'LinkedIn' },
-                  { Icon: Instagram, href: 'https://www.instagram.com/_y._chuu._', label: 'Instagram' },
-                  { Icon: Github, href: 'https://github.com/itzychuu', label: 'GitHub' },
-                  { Icon: Twitter, href: 'https://x.com/_why_choo_', label: 'Twitter' },
+                  { Icon: Linkedin, href: 'https://www.linkedin.com/in/1920-vaishnav-s/', label: 'Connect with Vaishnav Shalikumar on LinkedIn' },
+                  { Icon: Instagram, href: 'https://www.instagram.com/_y._chuu._', label: 'Follow Vaishnav Shalikumar on Instagram' },
+                  { Icon: Github, href: 'https://github.com/itzychuu', label: "View Vaishnav Shalikumar's GitHub profile" },
+                  { Icon: Twitter, href: 'https://x.com/_why_choo_', label: 'Follow Vaishnav Shalikumar on X' },
                 ].map(({ Icon, href, label }) => (
                   <a
                     key={label}

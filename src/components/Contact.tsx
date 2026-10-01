@@ -8,10 +8,10 @@ const contactInfo = [
 ];
 
 const socials = [
-  { icon: Linkedin,   href: 'https://linkedin.com/in/1920-vaishnav-s',   label: 'LinkedIn' },
-  { icon: Github,     href: 'https://github.com/itzychuu',         label: 'GitHub' },
-  { icon: Twitter,    href: 'https://x.com/_why_choo_',        label: 'X (Twitter)' },
-  { icon: Instagram,  href: 'https://www.instagram.com/_y._chuu._',      label: 'Instagram' }
+  { icon: Linkedin,   href: 'https://www.linkedin.com/in/1920-vaishnav-s/',   label: 'Connect with Vaishnav Shalikumar on LinkedIn' },
+  { icon: Github,     href: 'https://github.com/itzychuu',         label: "View Vaishnav Shalikumar's GitHub profile" },
+  { icon: Twitter,    href: 'https://x.com/_why_choo_',        label: 'Follow Vaishnav Shalikumar on X' },
+  { icon: Instagram,  href: 'https://www.instagram.com/_y._chuu._',      label: 'Follow Vaishnav Shalikumar on Instagram' }
 ];
 
 export default function Contact() {

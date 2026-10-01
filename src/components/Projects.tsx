@@ -86,7 +86,7 @@ export default function Projects() {
               <div className="relative flex-1 min-h-0 overflow-hidden rounded-xl">
                 <img
                   src={p.img}
-                  alt={`${p.title} — ${p.category} project by Vaishnav S`}
+                  alt={`${p.title} — ${p.category} project by Vaishnav Shalikumar`}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                 />
@@ -114,6 +114,7 @@ export default function Projects() {
                   href={p.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`Open ${p.title} live website`}
                   className="absolute top-3 right-3 grid place-items-center w-8 h-8 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-md"
                   style={{ background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.12)' }}
                 >
@@ -151,6 +152,7 @@ export default function Projects() {
                     href={p.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`View live demo of ${p.title}`}
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold text-white glass transition-all"
                     style={{ fontFamily: 'var(--font-alt)' }}
                     onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = 'rgba(169,28,38,0.2)')}
@@ -159,7 +161,10 @@ export default function Projects() {
                     <ExternalLink size={12} /> Live Demo
                   </a>
                   <a
-                    href="#"
+                    href="https://github.com/itzychuu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View Vaishnav Shalikumar's GitHub repository for ${p.title}`}
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold text-white glass transition-all"
                     style={{ fontFamily: 'var(--font-alt)' }}
                     onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = 'rgba(169,28,38,0.2)')}

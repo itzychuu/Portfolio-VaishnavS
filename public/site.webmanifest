@@ -1,0 +1,17 @@
+{
+  "name": "Vaishnav Shalikumar Portfolio",
+  "short_name": "Vaishnav S",
+  "description": "Vaishnav Shalikumar is a Computer Science Engineering student & developer from Kerala, India, specializing in web development, UI/UX design, cybersecurity & AI.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

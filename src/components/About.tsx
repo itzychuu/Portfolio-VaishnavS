@@ -55,8 +55,8 @@ export default function About() {
 
               <TiltedCard
                 imageSrc="/images/hero/vaishnav-s-about.jpeg"
-                altText="Vaishnav S"
-                captionText="Vaishnav S"
+                altText="Vaishnav Shalikumar"
+                captionText="Vaishnav Shalikumar (Vaishnav S)"
                 containerHeight="100%"
                 containerWidth="100%"
                 imageHeight="100%"
@@ -73,7 +73,7 @@ export default function About() {
           {/* Right: story */}
           <div className="lg:col-span-7 reveal-right">
             <p className="text-base sm:text-lg mb-6" style={{ fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.8 }}>
-              I'm <span className="text-white font-semibold">Vaishnav S</span>, a Computer Science and Engineering student from Kerala with a passion for building meaningful digital experiences through technology, design, and innovation. My interests lie at the intersection of Full-Stack Web Development, UI/UX Design, and Cybersecurity, where I enjoy transforming ideas into secure, scalable, and visually engaging products.
+              I'm <span className="text-white font-semibold">Vaishnav Shalikumar</span> (known professionally as <span className="text-white font-semibold">Vaishnav S</span>), a Computer Science and Engineering student from Kerala, India, with a passion for building meaningful digital experiences through technology, design, and innovation. My interests span Full-Stack Web Development, UI/UX Design, Cybersecurity, and AI applications, where I transform ideas into secure, scalable, and visually engaging products.
             </p>
             <p className="text-base sm:text-lg mb-10" style={{ fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.8 }}>
               Beyond academics, I actively contribute to student communities and collaborative initiatives, taking on leadership roles that allow me to create impact while learning from others. I enjoy working on projects that challenge me to think creatively, improve continuously, and push the boundaries of what's possible with modern technologies.
