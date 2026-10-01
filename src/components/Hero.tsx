@@ -8,7 +8,6 @@ const FRAME_H = 833;
 const TEAL = '#188F87';
 const RED = '#A91C26';
 
-const LALEZAR = "'Lalezar', cursive";
 const INTER = "'Inter', sans-serif";
 
 export default function Hero() {
@@ -73,7 +72,7 @@ export default function Hero() {
           y="52%"
           textAnchor="middle"
           dominantBaseline="middle"
-          style={{ fontFamily: LALEZAR, fontSize: 220 }}
+          style={{ fontFamily: INTER, fontSize: 220 }}
           fill="url(#nameGradientFill)"
         >
           Vaishnav S
@@ -115,7 +114,7 @@ export default function Hero() {
           y="52%"
           textAnchor="middle"
           dominantBaseline="middle"
-          style={{ fontFamily: LALEZAR, fontSize: 220 }}
+          style={{ fontFamily: INTER, fontSize: 220 }}
           fill="none"
           stroke="url(#nameGradientStroke)"
           strokeWidth={1}
@@ -135,13 +134,13 @@ export default function Hero() {
           <div className="lg:col-span-6 page-load-content-left">
             <h1
               className="text-white font-bold mb-1 tracking-tight"
-              style={{ fontFamily: LALEZAR, fontSize: 34 }}
+              style={{ fontFamily: INTER, fontSize: 34 }}
             >
               Vaishnav Shalikumar
             </h1>
             <div
               className="text-white mb-3 leading-snug flex flex-wrap items-center gap-x-2"
-              style={{ fontFamily: LALEZAR, fontSize: 32 }}
+              style={{ fontFamily: INTER, fontSize: 32 }}
             >
               <RotatingText
                 texts={['Full Stack Developer', 'UI/UX Designer', 'Cybersecurity Enthusiast']}
